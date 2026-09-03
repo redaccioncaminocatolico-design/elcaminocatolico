@@ -1,40 +1,24 @@
 ---
 title: "Política de Privacidad"
-description: "Política de privacidad de El Camino Católico. Información sobre el uso de cookies y datos personales."
+slug: "privacidad"
+descripcion: "Política de privacidad de El Camino Católico."
 ---
 
-Esta Política de Privacidad describe cómo El Camino Católico (en adelante "el sitio") gestiona la información de sus visitantes.
+En **El Camino Católico** respetamos tu privacidad y nos comprometemos a proteger la información de nuestros visitantes. Esta política explica de manera sencilla y clara cómo manejamos los datos en nuestro sitio.
 
-## Información que recopilamos
+## Uso de cookies y servicios de terceros
 
-El Camino Católico no recopila datos personales directamente. Sin embargo, utilizamos servicios de terceros que pueden recopilar información de manera automática:
+Nuestro sitio web utiliza cookies para mejorar tu experiencia de navegación y para el correcto funcionamiento de ciertas herramientas:
 
-- **Google Analytics**: Recopila datos anónimos sobre el uso del sitio (páginas visitadas, tiempo de permanencia, país de origen). Esta información no identifica a los usuarios personalmente.
-- **Google AdSense**: Muestra anuncios personalizados basados en el comportamiento de navegación del usuario. Google puede usar cookies para mostrar anuncios relevantes.
+*   **Google AdSense:** Utilizamos cookies de Google AdSense para mostrar anuncios que puedan ser de tu interés. Estas cookies permiten a Google y a sus socios mostrar anuncios basados en tus visitas a este y otros sitios en Internet.
+*   **Google Analytics:** Usamos esta herramienta para entender cómo los usuarios navegan e interactúan con nuestro sitio. Esto nos permite mejorar constantemente nuestro contenido. La información que recoge Google Analytics es general y estadística.
 
-## Cookies
+## Tus datos están seguros
 
-Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo cuando visitás un sitio web. Este sitio utiliza cookies de:
-
-- **Google Analytics**: Para medir el tráfico y el comportamiento de los visitantes.
-- **Google AdSense**: Para personalizar la publicidad mostrada.
-
-Podés deshabilitar las cookies desde la configuración de tu navegador, aunque esto puede afectar la funcionalidad de algunos servicios.
-
-## Publicidad
-
-Este sitio participa en el programa de publicidad de **Google AdSense**. Google usa cookies de DoubleClick para mostrar anuncios basados en visitas previas a este u otros sitios. Podés optar por no recibir publicidad personalizada visitando [Configuración de anuncios de Google](https://www.google.com/settings/ads).
-
-## Servicios de terceros
-
-No vendemos, alquilamos ni compartimos información personal con terceros. Cualquier dato recopilado por Google Analytics o Google AdSense está sujeto a las políticas de privacidad de Google.
-
-## Cambios en esta política
-
-Nos reservamos el derecho de actualizar esta Política de Privacidad. Las modificaciones se publicarán en esta misma página con la fecha de actualización.
+Queremos darte la tranquilidad de que **no vendemos, alquilamos ni cedemos tus datos a terceros**. Cualquier información recopilada se utiliza exclusivamente para los fines mencionados (analítica web y publicidad) y para el funcionamiento del blog.
 
 ## Contacto
 
-Para consultas sobre esta política escribinos a [contacto@elcaminocatolico.com](mailto:contacto@elcaminocatolico.com).
+Si tienes alguna pregunta, duda o sugerencia relacionada con esta política de privacidad, no dudes en escribirnos a nuestro correo electrónico: [redaccion.caminocatolico@gmail.com](mailto:redaccion.caminocatolico@gmail.com)
 
-*Última actualización: septiembre de 2025.*
+*Última actualización: septiembre 2026*

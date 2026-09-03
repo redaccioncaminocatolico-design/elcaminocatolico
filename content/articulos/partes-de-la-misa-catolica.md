@@ -1,7 +1,7 @@
 ---
 title: "Partes de la Misa Católica: qué es cada una y qué significan"
 slug: "partes-de-la-misa-catolica"
-date: 2026-09-04
+date: 2026-09-03
 categoria: "fe-y-doctrina"
 tags: [misa, liturgia, eucaristia, sacramentos, fe-y-doctrina]
 descripcion: "Conocé cada parte de la Misa Católica, qué significa y por qué es importante. Guía completa para entender la liturgia desde el inicio hasta el final."

@@ -33,7 +33,7 @@
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "El Camino Católico",
-      "url": "https://elcaminocatolico.com",
+      "url": "{{ .Site.BaseURL }}",
       "description": "Tu guía en la fe católica. Artículos, oraciones y reflexiones.",
       "inLanguage": "es"
     }
@@ -50,12 +50,12 @@
       "author": {
         "@type": "Organization",
         "name": "El Camino Católico",
-        "url": "https://elcaminocatolico.com"
+        "url": "{{ .Site.BaseURL }}"
       },
       "publisher": {
         "@type": "Organization",
         "name": "El Camino Católico",
-        "url": "https://elcaminocatolico.com"
+        "url": "{{ .Site.BaseURL }}"
       },
       "mainEntityOfPage": {
         "@type": "WebPage",

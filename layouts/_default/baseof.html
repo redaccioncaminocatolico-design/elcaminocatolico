@@ -1,106 +1,124 @@
 <!DOCTYPE html>
-<html lang="es-AR">
+<html lang="{{ .Site.LanguageCode | default "es" }}">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO básico -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+    <meta name="description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Params.descripcion }}{{ end }}">
+    <meta name="keywords" content="{{ if .IsHome }}{{ .Site.Params.keywords }}{{ else }}{{ .Params.keywords }}{{ end }}">
+    <meta name="author" content="{{ .Site.Params.author | default "El Camino Católico" }}">
+    <link rel="canonical" href="{{ .Permalink }}">
 
-  <!-- SEO básico (Doc 03 §1) -->
-  <title>{{ if .IsHome }}El Camino Católico — Tu guía en la fe{{ else }}{{ .Title }} | El Camino Católico{{ end }}</title>
-  <meta name="description" content="{{ if .Params.descripcion }}{{ .Params.descripcion }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-  <meta name="keywords" content="{{ if .Params.keywords }}{{ .Params.keywords }}{{ else }}{{ .Site.Params.keywords }}{{ end }}">
-  <meta name="author" content="El Camino Católico">
-  <link rel="canonical" href="{{ .Permalink }}">
+    <!-- Open Graph (para compartir en redes sociales) -->
+    <meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+    <meta property="og:description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Params.descripcion }}{{ end }}">
+    <meta property="og:url" content="{{ .Permalink }}">
+    <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
+    <meta property="og:site_name" content="{{ .Site.Title }}">
+    <meta property="og:locale" content="es_AR">
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="{{ .Title }}">
-  <meta property="og:description" content="{{ if .Params.descripcion }}{{ .Params.descripcion }}{{ else }}{{ .Site.Params.description }}{{ end }}">
-  <meta property="og:url" content="{{ .Permalink }}">
-  <meta property="og:type" content="{{ if .IsHome }}website{{ else }}article{{ end }}">
-  <meta property="og:site_name" content="El Camino Católico">
-  <meta property="og:locale" content="es_AR">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }}{{ end }}">
+    <meta name="twitter:description" content="{{ if .IsHome }}{{ .Site.Params.description }}{{ else }}{{ .Params.descripcion }}{{ end }}">
 
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="{{ .Title }}">
-  <meta name="twitter:description" content="{{ if .Params.descripcion }}{{ .Params.descripcion }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png">
-
-  <!-- Google Fonts: Playfair Display + Source Serif 4 (Doc 01 §3 / Doc 03 §6.1) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
-
-  <!-- CSS propio -->
-  <link rel="stylesheet" href="/css/main.css">
-
-  <!-- Google Analytics GA4 (Doc 03 §8) -->
-  {{ if .Site.Params.googleAnalytics }}
-  <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', '{{ .Site.Params.googleAnalytics }}');
-  </script>
-  {{ end }}
-
-  <!-- Google AdSense — tag global (Doc 03 §9.1) -->
-  {{ if .Site.Params.adsenseID }}
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ .Site.Params.adsenseID }}"
-       crossorigin="anonymous"></script>
-  {{ end }}
-</head>
-
-<body>
-
-  <!-- ── Header / Navegación (Doc 01 §4.1) ── -->
-  <header class="site-header">
-    <a href="/" class="site-logo">✠ El Camino Católico</a>
-
-    <nav class="site-nav" aria-label="Navegación principal">
-      <a href="/categoria/fe-y-doctrina/">Fe y doctrina</a>
-      <a href="/categoria/santos/">Santos</a>
-      <a href="/categoria/oraciones/">Oraciones</a>
-      <a href="/categoria/historia/">Historia</a>
-      <a href="/categoria/apologetica/">Apologética</a>
-    </nav>
-
-    <button class="nav-toggle" aria-label="Abrir menú" onclick="toggleMenu()" id="nav-toggle-btn">☰</button>
-  </header>
-
-  <!-- Menú móvil -->
-  <nav class="mobile-nav" id="mobile-nav" aria-label="Menú móvil">
-    <a href="/categoria/fe-y-doctrina/">Fe y doctrina</a>
-    <a href="/categoria/santos/">Santos</a>
-    <a href="/categoria/oraciones/">Oraciones</a>
-    <a href="/categoria/historia/">Historia</a>
-    <a href="/categoria/apologetica/">Apologética</a>
-  </nav>
-
-  <!-- ── Contenido principal ── -->
-  <main>
-    {{- block "main" . }}{{- end }}
-  </main>
-
-  <!-- ── Footer (Doc 01 §4.10) ── -->
-  <footer class="site-footer">
-    <p>© {{ now.Year }} <a href="/">El Camino Católico</a> · <a href="https://elcaminocatolico.com">elcaminocatolico.com</a></p>
-    <nav class="footer-nav" aria-label="Menú secundario">
-      <a href="/acerca/">Acerca de</a>
-      <a href="/contacto/">Contacto</a>
-      <a href="/privacidad/">Política de privacidad</a>
-    </nav>
-  </footer>
-
-  <!-- Hamburger JS (sin librerías) -->
-  <script>
-    function toggleMenu() {
-      var nav = document.getElementById('mobile-nav');
-      nav.classList.toggle('open');
+    <!-- Schema Markup -->
+    {{ if .IsHome }}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "El Camino Católico",
+      "url": "https://elcaminocatolico.com",
+      "description": "Tu guía en la fe católica. Artículos, oraciones y reflexiones.",
+      "inLanguage": "es"
     }
-  </script>
+    </script>
+    {{ else if .IsPage }}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{{ .Title }}",
+      "description": "{{ .Params.descripcion }}",
+      "datePublished": "{{ .Date.Format "2006-01-02" }}",
+      "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
+      "author": {
+        "@type": "Organization",
+        "name": "El Camino Católico",
+        "url": "https://elcaminocatolico.com"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "El Camino Católico",
+        "url": "https://elcaminocatolico.com"
+      },
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "{{ .Permalink }}"
+      }
+    }
+    </script>
+    {{ end }}
 
+    <!-- Preconnect antes del link de Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Cargar fuentes con display=swap para evitar FOIT -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="/css/main.css">
+
+    <!-- Google Analytics GA4 -->
+    {{ if .Site.Params.googleAnalytics }}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ .Site.Params.googleAnalytics }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ .Site.Params.googleAnalytics }}');
+    </script>
+    {{ end }}
+
+    {{ if .Site.Params.adsenseID }}
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ .Site.Params.adsenseID }}"
+         crossorigin="anonymous"></script>
+    {{ end }}
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a href="/" class="logo">✝ El Camino Católico</a>
+            <input type="checkbox" id="menu-toggle" class="menu-toggle">
+            <label for="menu-toggle" class="menu-icon">☰</label>
+            <nav class="main-nav">
+                <a href="/">Inicio</a>
+                <a href="/categoria/fe-y-doctrina/">Fe y doctrina</a>
+                <a href="/categoria/santos/">Santos</a>
+                <a href="/categoria/oraciones/">Oraciones</a>
+                <a href="/categoria/historia/">Historia</a>
+                <a href="/categoria/apologetica/">Apologética</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        {{ block "main" . }}{{ end }}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="/acerca/">Acerca de</a>
+                <a href="/contacto/">Contacto</a>
+                <a href="/privacidad/">Política de privacidad</a>
+            </div>
+            <p>&copy; {{ now.Format "2006" }} <span class="footer-logo">El Camino Católico</span> | elcaminocatolico.com</p>
+        </div>
+    </footer>
 </body>
 </html>

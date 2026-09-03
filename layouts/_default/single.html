@@ -1,126 +1,90 @@
 {{ define "main" }}
+<div class="article-page">
+    <header class="article-header-wrapper">
+        <div class="header-inner-content">
+            <nav aria-label="breadcrumb" class="breadcrumb">
+              <a href="/">Inicio</a> ›
+              <a href="/categoria/{{ .Params.categoria | urlize }}/">{{ .Params.categoria | replaceRE "-" " " | title }}</a>
+            </nav>
 
-<!-- Schema Article (Doc 03 §2) -->
-{{ if .Params.categoria }}
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "{{ .Title }}",
-  "description": "{{ .Params.descripcion }}",
-  "datePublished": "{{ .Date.Format "2006-01-02" }}",
-  "dateModified": "{{ .Lastmod.Format "2006-01-02" }}",
-  "author": {
-    "@type": "Organization",
-    "name": "El Camino Católico",
-    "url": "https://elcaminocatolico.com"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "El Camino Católico",
-    "url": "https://elcaminocatolico.com"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "{{ .Permalink }}"
-  }
-}
-</script>
+            <script type="application/ld+json">
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Inicio",
+                  "item": "https://elcaminocatolico.com/"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "{{ .Params.categoria | replaceRE "-" " " | title }}",
+                  "item": "{{ printf "/categoria/%s/" (.Params.categoria | urlize) | absURL }}"
+                }
+              ]
+            }
+            </script>
+            <div class="article-header">
+                <span class="category-badge">{{ .Params.categoria | replaceRE "-" " " }}</span>
+                <h1>{{ .Title }}</h1>
+                <div class="article-meta">
+                    <time>{{ .Date.Format "02 Ene 2006" }}</time> • {{ .Params.tiempo_lectura }} min de lectura
+                </div>
+            </div>
+        </div>
+    </header>
 
-<!-- Schema BreadcrumbList (Doc 03 §10) -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Inicio",
-      "item": "https://elcaminocatolico.com/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "{{ .Params.categoria | title }}",
-      "item": "https://elcaminocatolico.com/categoria/{{ .Params.categoria | urlize }}/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 3,
-      "name": "{{ .Title }}",
-      "item": "{{ .Permalink }}"
-    }
-  ]
-}
-</script>
+    <article class="article-content">
+        {{ $content := .Content }}
+        {{ $paragraphs := split $content "</p>" }}
+        {{ $firstParagraph := index $paragraphs 0 }}
+        
+        {{ $processedFirst := replace $firstParagraph "<p>" "<p class=\"intro-paragraph\">" }}
+        
+        {{ $result := $processedFirst }}
+        {{ $result = print $result "</p>" }}
+        
+        {{ $pCount := len $paragraphs }}
+        {{ if gt $pCount 1 }}
+            {{ range $i, $p := seq 1 (sub $pCount 1) }}
+                {{ $result = print $result (index $paragraphs $i) "</p>" }}
+                
+                {{ if eq $i 2 }}
+                    {{ if $.Site.Params.adsenseID }}
+                    {{ $adBlock := printf `<div class="ad-container">
+                      <p class="ad-label">Publicidad</p>
+                      <ins class="adsbygoogle"
+                           style="display:block"
+                           data-ad-client="%s"
+                           data-ad-slot="XXXXXXXXXX"
+                           data-ad-format="auto"
+                           data-full-width-responsive="true"></ins>
+                      <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                    </div>` $.Site.Params.adsenseID }}
+                    {{ $result = print $result $adBlock }}
+                    {{ end }}
+                {{ end }}
+            {{ end }}
+        {{ end }}
+        
+        {{ $result | safeHTML }}
+    </article>
 
-<!-- Artículo con categoría: layout editorial -->
-<div class="article-header">
-  <div class="article-header-inner">
-    <nav aria-label="breadcrumb" class="breadcrumb">
-      <a href="/">Inicio</a> ›
-      <a href="/categoria/{{ .Params.categoria | urlize }}/">{{ .Params.categoria | title }}</a> ›
-      <span>{{ .Title | truncate 45 }}</span>
-    </nav>
-    <span class="article-badge">{{ .Params.categoria | upper }}</span>
-    <h1>{{ .Title }}</h1>
-    <p class="article-meta">
-      {{ .Date.Format "2 de January de 2006" }}
-      {{ if .Params.tiempo_lectura }}· {{ .Params.tiempo_lectura }} min de lectura{{ end }}
-    </p>
-  </div>
+    <section class="related-articles">
+        <div class="related-inner">
+            <h2>Artículos relacionados</h2>
+            <ul>
+                {{ $related := first 3 (where (where .Site.RegularPages "Type" "articulos") "Params.categoria" .Params.categoria) }}
+                {{ range $related }}
+                    {{ if ne .Permalink $.Permalink }}
+                    <li><span class="gold-dot">✝</span> <a href="{{ .Permalink }}">{{ .Title }}</a></li>
+                    {{ end }}
+                {{ end }}
+            </ul>
+        </div>
+    </section>
 </div>
-
-<div class="article-body">
-  <div class="article-content">
-    {{ .Content }}
-  </div>
-</div>
-
-<!-- AdSense dentro del artículo (Doc 03 §9.2) -->
-{{ if .Site.Params.adsenseID }}
-<div class="site-wrapper">
-  <div class="ad-container">
-    <p class="ad-label">Publicidad</p>
-    <ins class="adsbygoogle"
-         style="display:block"
-         data-ad-client="{{ .Site.Params.adsenseID }}"
-         data-ad-slot="XXXXXXXXXX"
-         data-ad-format="auto"
-         data-full-width-responsive="true"></ins>
-    <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-  </div>
-</div>
-{{ end }}
-
-<!-- Artículos relacionados (misma categoría, Doc 02 §4.2 / Doc 01 §4.8) -->
-{{ $categoria := .Params.categoria }}
-{{ $currentPermalink := .Permalink }}
-{{ $relacionados := where (where .Site.RegularPages "Params.categoria" $categoria) ".Permalink" "ne" $currentPermalink | first 3 }}
-{{ if $relacionados }}
-<section class="relacionados">
-  <div class="relacionados-inner">
-    <p class="relacionados-titulo">También te puede interesar</p>
-    <ul class="relacionados-lista">
-      {{ range $relacionados }}
-      <li>
-        <a href="{{ .Permalink }}">{{ .Title }}</a>
-      </li>
-      {{ end }}
-    </ul>
-  </div>
-</section>
-{{ end }}
-
-{{ else }}
-<!-- Página estática: acerca, contacto, privacidad -->
-<div class="pagina-header">
-  <h1>{{ .Title }}</h1>
-</div>
-<div class="pagina-cuerpo">
-  {{ .Content }}
-</div>
-{{ end }}
-
 {{ end }}

@@ -1,62 +1,46 @@
 {{ define "main" }}
+<div class="list-page">
+    <header class="category-banner">
+        <div class="banner-inner">
+            <h1>{{ .Title }}</h1>
+            {{ if .Params.description }}
+            <p>{{ .Params.description }}</p>
+            {{ end }}
+        </div>
+    </header>
 
-<!-- Banner de categoría (Doc 02 §4.3 / Doc 01 §4.9) -->
-<div class="categoria-banner">
-  <h1>
-    {{ if .IsHome }}Todos los artículos
-    {{ else if .Title }}{{ .Title }}
-    {{ else }}Artículos
-    {{ end }}
-  </h1>
-  {{ if .Params.descripcion }}
-  <p>{{ .Params.descripcion }}</p>
-  {{ end }}
-</div>
-
-<!-- Grid de artículos (Doc 01 §4.3) -->
-<div class="site-wrapper">
-  <div class="articulos-grid" style="padding-top: 28px;">
-    {{ range .Paginator.Pages }}
-    <a href="{{ .Permalink }}" class="card">
-      <!-- Thumbnail placeholder ✠ sobre fondo azul -->
-      <div class="card-thumb">✠</div>
-      <div class="card-body">
-        {{ if .Params.categoria }}
-        <p class="card-categoria">{{ .Params.categoria | upper }}</p>
+    <section class="list-articles">
+        <div class="article-grid">
+            {{ $paginator := .Paginate .Pages }}
+            {{ range $paginator.Pages }}
+            <article class="article-card">
+                <a href="{{ .Permalink }}">
+                    <div class="card-image">
+                        <span class="placeholder-icon">✝</span>
+                    </div>
+                    <div class="card-content">
+                        <span class="card-category">{{ .Params.categoria | replaceRE "-" " " }}</span>
+                        <h3>{{ .Title }}</h3>
+                        <p class="card-excerpt">{{ .Params.descripcion }}</p>
+                    </div>
+                </a>
+            </article>
+            {{ end }}
+        </div>
+        
+        {{ if gt $paginator.TotalPages 1 }}
+        <div class="pagination">
+            {{ if $paginator.HasPrev }}
+            <a href="{{ $paginator.Prev.URL }}" class="page-nav">« Anterior</a>
+            {{ end }}
+            
+            <span class="page-current">Página {{ $paginator.PageNumber }} de {{ $paginator.TotalPages }}</span>
+            
+            {{ if $paginator.HasNext }}
+            <a href="{{ $paginator.Next.URL }}" class="page-nav">Siguiente »</a>
+            {{ end }}
+        </div>
         {{ end }}
-        <p class="card-titulo">{{ .Title }}</p>
-        {{ if .Params.descripcion }}
-        <p class="card-excerpt">{{ .Params.descripcion | truncate 90 }}</p>
-        {{ end }}
-      </div>
-    </a>
-    {{ else }}
-    <p style="color: var(--texto-muted); font-family: var(--fuente-cuerpo); font-size: 14px; padding: 20px 0;">
-      No hay artículos en esta categoría todavía.
-    </p>
-    {{ end }}
-  </div>
-
-  <!-- Paginación (Doc 02 §4.3) -->
-  {{ if gt .Paginator.TotalPages 1 }}
-  <nav class="paginacion" aria-label="Paginación">
-    {{ if .Paginator.HasPrev }}
-    <a href="{{ .Paginator.Prev.URL }}">← Anterior</a>
-    {{ end }}
-
-    {{ range .Paginator.Pagers }}
-    {{ if eq . $.Paginator }}
-    <span class="active">{{ .PageNumber }}</span>
-    {{ else }}
-    <a href="{{ .URL }}">{{ .PageNumber }}</a>
-    {{ end }}
-    {{ end }}
-
-    {{ if .Paginator.HasNext }}
-    <a href="{{ .Paginator.Next.URL }}">Siguiente →</a>
-    {{ end }}
-  </nav>
-  {{ end }}
+    </section>
 </div>
-
 {{ end }}

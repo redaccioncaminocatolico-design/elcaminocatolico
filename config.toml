@@ -1,0 +1,27 @@
+baseURL = "https://elcaminocatolico.com/"
+languageCode = "es-AR"
+title = "El Camino Católico"
+description = "Tu guía en la fe católica. Artículos, oraciones y reflexiones para crecer en la fe."
+paginate = 10
+enableRobotsTXT = true
+
+[params]
+  author = "El Camino Católico"
+  email = "contacto@elcaminocatolico.com"
+  keywords = "catolicismo, fe católica, oraciones, santos, doctrina católica"
+  googleAnalytics = ""   # completar cuando esté activo
+  adsenseID = ""         # completar cuando esté aprobado por AdSense
+
+[taxonomies]
+  category = "categoria"
+  tag = "tags"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true   # permite HTML dentro del Markdown
+
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"

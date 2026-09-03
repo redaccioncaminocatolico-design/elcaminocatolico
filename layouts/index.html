@@ -1,0 +1,84 @@
+{{ define "main" }}
+
+<!-- Schema WebSite (Doc 03 §2) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "El Camino Católico",
+  "url": "https://elcaminocatolico.com",
+  "description": "Tu guía en la fe católica. Artículos, oraciones y reflexiones.",
+  "inLanguage": "es"
+}
+</script>
+
+<!-- ── Hero (Doc 01 §4.2 / Doc 02 §4.1) ── -->
+<section class="hero">
+  <p class="hero-eyebrow">« Yo soy el camino, la verdad y la vida » — Jn 14,6</p>
+  <h1>Tu guía en la fe católica</h1>
+  <p class="hero-subtitulo">Artículos, oraciones y reflexiones para crecer en la fe. Doctrina, santos, historia e apologética.</p>
+</section>
+
+<div class="site-wrapper">
+
+  <!-- ── Artículo destacado (Doc 02 §4.1 / Doc 01 §4.4) ── -->
+  {{ $featured := where .Site.RegularPages "Params.featured" true | first 1 }}
+  {{ if $featured }}
+    {{ range $featured }}
+    <p class="seccion-titulo">Artículo destacado</p>
+    <div class="featured-article">
+      <div class="featured-thumb">✠</div>
+      <div class="featured-content">
+        {{ if .Params.categoria }}
+        <span class="featured-badge">{{ .Params.categoria | upper }}</span>
+        {{ end }}
+        <p class="featured-title"><a href="{{ .Permalink }}">{{ .Title }}</a></p>
+        <p class="featured-meta">
+          {{ .Date.Format "2 de January de 2006" }}
+          {{ if .Params.tiempo_lectura }}· {{ .Params.tiempo_lectura }} min{{ end }}
+        </p>
+      </div>
+    </div>
+    {{ end }}
+  {{ end }}
+
+  <!-- ── Últimos artículos — grid (Doc 02 §4.1 / Doc 01 §4.3) ── -->
+  {{ $articulos := where .Site.RegularPages "Section" "articulos" | first 6 }}
+  {{ if $articulos }}
+  <p class="seccion-titulo">Últimos artículos</p>
+  <div class="articulos-grid">
+    {{ range $articulos }}
+    <a href="{{ .Permalink }}" class="card">
+      <div class="card-thumb">✠</div>
+      <div class="card-body">
+        {{ if .Params.categoria }}
+        <p class="card-categoria">{{ .Params.categoria | upper }}</p>
+        {{ end }}
+        <p class="card-titulo">{{ .Title }}</p>
+        {{ if .Params.descripcion }}
+        <p class="card-excerpt">{{ .Params.descripcion | truncate 90 }}</p>
+        {{ end }}
+      </div>
+    </a>
+    {{ end }}
+  </div>
+  {{ end }}
+
+  <!-- ── Divisor ── -->
+  <hr class="divisor">
+
+  <!-- ── Explorar por categoría — pills (Doc 02 §4.1 / Doc 01 §4.9) ── -->
+  <p class="seccion-titulo">Explorar por categoría</p>
+  <div class="categorias-pills">
+    <a href="/categoria/fe-y-doctrina/" class="pill">Fe y doctrina</a>
+    <a href="/categoria/santos/" class="pill">Santos</a>
+    <a href="/categoria/oraciones/" class="pill">Oraciones</a>
+    <a href="/categoria/historia/" class="pill">Historia</a>
+    <a href="/categoria/apologetica/" class="pill">Apologética</a>
+    <a href="/categoria/virgen-maria/" class="pill">Virgen María</a>
+    <a href="/categoria/semana-santa/" class="pill">Semana Santa</a>
+  </div>
+
+</div>
+
+{{ end }}

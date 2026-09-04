@@ -139,6 +139,16 @@
       "descripcion_corta": "Solemnidad del nacimiento de Jesucristo",
       "biografia": "La gran solemnidad del nacimiento de Jesucristo, el Hijo eterno de Dios hecho hombre en el seno de la Virgen María. Celebrada litúrgicamente desde el siglo IV, marca el inicio del tiempo de Navidad. La Iglesia celebra tres Misas: la de medianoche, la de la aurora y la del día, cada una con su propio sentido teológico.",
       "tags": ["Solemnidad", "Navidad", "Encarnación", "Precepto", "S. IV"]
+    },
+    {
+      "fecha": "8-14",
+      "dia": 14,
+      "mes": 8,
+      "nombre": "San Maximiliano María Kolbe",
+      "tipo": "principal",
+      "descripcion_corta": "Mártir de la caridad en Auschwitz (1894–1941)",
+      "biografia": "Nacido el 8 de enero de 1894 en Zduńska Wola, Polonia, Raymond Kolbe ingresó a la Orden de los Frailes Menores Conventuales tomando el nombre de Maximiliano. Fundó la Milicia de la Inmaculada en 1917, una asociación mariana que llegó a tener millones de miembros en todo el mundo, y estableció la Ciudad de la Inmaculada (Niepokalanów), un enorme convento-editorial desde el que difundía la fe católica. Fue misionero en Japón, donde fundó otra Ciudad de la Inmaculada en Nagasaki. En 1941, durante la ocupación nazi de Polonia, fue arrestado y deportado al campo de concentración de Auschwitz. Cuando un prisionero escapó, los nazis seleccionaron a diez hombres para morir de hambre en represalia. Maximiliano se ofreció voluntariamente a ocupar el lugar de uno de ellos, Francisco Gajowniczek, que tenía mujer e hijos. Murió el 14 de agosto de 1941, víspera de la Asunción, tras ser inyectado con ácido carbólico. Fue canonizado por el Papa Juan Pablo II en 1982, quien lo proclamó mártir de la caridad. Francisco Gajowniczek estuvo presente en su canonización.",
+      "tags": ["Mártir", "Franciscano", "Polonia", "S. XX", "Auschwitz", "Milicia de la Inmaculada"]
     }
   ]
 }

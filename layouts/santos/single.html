@@ -37,7 +37,7 @@
       <div class="santo-card-fecha">
         {{ .dia }} de
         {{ $mesesNombres := slice "Enero" "Febrero" "Marzo" "Abril" "Mayo" "Junio" "Julio" "Agosto" "Septiembre" "Octubre" "Noviembre" "Diciembre" }}
-        {{ index $mesesNombres (sub .mes 1) }}
+        {{ index $mesesNombres (sub (int .mes) 1) }}
       </div>
       <div class="santo-card-tipo {{ .tipo }}">{{ if eq .tipo "principal" }}Fiesta principal{{ else }}Conmemoración{{ end }}</div>
       <h2 class="santo-card-nombre">{{ .nombre }}</h2>

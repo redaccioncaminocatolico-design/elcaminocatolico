@@ -4,7 +4,7 @@
   Uso en cualquier página de Hugo: {{< santo-cumpleanos >}}
   Coloca el widget "¿Cuál es tu santo?" con los datos de /data/santoral.json
 */}}
-{{ $santoral := .Site.Data.santoral.santos }}
+{{ $santoral := site.Data.santoral.santos }}
 
 <div class="widget-santo-cumple">
   <div class="widget-santo-header">

@@ -674,3 +674,449 @@ a {
     font-size: 15px;
   }
 }
+
+/* =============================================
+   SECCIÓN SANTOS — El Camino Católico
+   Pegar este CSS en tu archivo de estilos principal
+   ============================================= */
+
+.santos-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+.santos-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.santos-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-texto-principal, #1a1a1a);
+  margin-bottom: 0.5rem;
+}
+
+.santos-intro {
+  color: var(--color-texto-secundario, #555);
+  font-size: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* --- Controles --- */
+.santos-controles {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.santos-buscador {
+  width: 100%;
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+}
+
+.meses-filtro {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.mes-btn {
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: #555;
+  transition: all 0.15s;
+}
+
+.mes-btn:hover {
+  border-color: #8b1a1a;
+  color: #8b1a1a;
+}
+
+.mes-btn.activo {
+  background: #8b1a1a;
+  border-color: #8b1a1a;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* --- Grilla de tarjetas --- */
+.santos-grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.santo-card {
+  background: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: box-shadow 0.15s;
+}
+
+.santo-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.santo-card-fecha {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8b1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.santo-card-tipo {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 2px 8px;
+  width: fit-content;
+}
+
+.santo-card-tipo.principal {
+  background: #8b1a1a;
+  color: #fff;
+}
+
+.santo-card-tipo.secundario {
+  background: #f0dada;
+  color: #6b1212;
+}
+
+.santo-card-nombre {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.santo-card-desc {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.santo-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.santo-tag {
+  font-size: 0.7rem;
+  background: #f5f0f0;
+  border: 1px solid #e8d8d8;
+  border-radius: 20px;
+  padding: 2px 8px;
+  color: #7a4040;
+}
+
+.santo-ver-mas {
+  background: none;
+  border: 1px solid #8b1a1a;
+  border-radius: 6px;
+  color: #8b1a1a;
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: all 0.15s;
+  align-self: flex-start;
+}
+
+.santo-ver-mas:hover {
+  background: #8b1a1a;
+  color: #fff;
+}
+
+.santos-contador {
+  text-align: center;
+  margin-top: 2rem;
+  color: #999;
+  font-size: 0.85rem;
+}
+
+/* --- Panel lateral de detalle --- */
+.santo-panel-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 100;
+}
+
+.santo-panel-overlay.activo {
+  display: block;
+}
+
+.santo-panel {
+  position: fixed;
+  top: 0;
+  right: -440px;
+  width: 420px;
+  max-width: 95vw;
+  height: 100vh;
+  background: #fff;
+  z-index: 101;
+  padding: 2rem 1.5rem;
+  overflow-y: auto;
+  transition: right 0.3s ease;
+  box-shadow: -4px 0 24px rgba(0,0,0,0.12);
+}
+
+.santo-panel.abierto {
+  right: 0;
+}
+
+.panel-cerrar {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #999;
+  line-height: 1;
+}
+
+.panel-cerrar:hover { color: #333; }
+
+.panel-fecha {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8b1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem;
+}
+
+.panel-nombre {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 0.5rem;
+  line-height: 1.3;
+}
+
+.panel-desc {
+  font-size: 0.9rem;
+  color: #666;
+  margin: 0 0 1.25rem;
+  font-style: italic;
+}
+
+.panel-bio {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
+}
+
+.panel-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 600px) {
+  .santos-grilla {
+    grid-template-columns: 1fr;
+  }
+  .santo-panel {
+    width: 100%;
+    right: -100%;
+  }
+}
+/* =============================================
+   WIDGET SANTO DEL CUMPLEAÑOS — Homepage
+   Pegar este CSS en tu archivo de estilos principal
+   ============================================= */
+
+.widget-santo-cumple {
+  background: #fff;
+  border: 1px solid #e8e0e0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  max-width: 480px;
+  margin: 0 auto 2rem;
+}
+
+.widget-santo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.25rem;
+}
+
+.widget-santo-icono {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: #f0dada;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  color: #8b1a1a;
+  flex-shrink: 0;
+}
+
+.widget-santo-titulo {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0;
+}
+
+.widget-santo-sub {
+  font-size: 0.8rem;
+  color: #888;
+  margin: 2px 0 0;
+}
+
+/* --- Formulario --- */
+.widget-santo-form {
+  display: flex;
+  gap: 8px;
+}
+
+.cumple-input {
+  flex: 1;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.cumple-btn {
+  background: #8b1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.cumple-btn:hover {
+  background: #6b1212;
+}
+
+.cumple-error {
+  font-size: 0.8rem;
+  color: #c0392b;
+  margin-top: 6px;
+}
+
+/* --- Resultado --- */
+.cumple-resultado {
+  margin-top: 1.25rem;
+  padding: 1rem;
+  background: #fdf5f5;
+  border-radius: 8px;
+}
+
+.cumple-resultado-fecha {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8b1a1a;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.75rem;
+}
+
+.cumple-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cumple-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.cumple-vacio {
+  font-size: 0.85rem;
+  color: #888;
+  font-style: italic;
+}
+
+.cumple-badge {
+  font-size: 0.65rem;
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 2px 7px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.cumple-badge-principal {
+  background: #8b1a1a;
+  color: #fff;
+}
+
+.cumple-badge-secundario {
+  background: #f0dada;
+  color: #6b1212;
+}
+
+.cumple-nombre {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #1a1a1a;
+}
+
+.cumple-desc {
+  display: block;
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+.cumple-link-seccion {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.8rem;
+  color: #8b1a1a;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cumple-link-seccion:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,144 @@
+{
+  "santos": [
+    {
+      "fecha": "1-1",
+      "dia": 1,
+      "mes": 1,
+      "nombre": "María, Madre de Dios",
+      "tipo": "principal",
+      "descripcion_corta": "Solemnidad de Santa María en el Año Nuevo",
+      "biografia": "El primer día del año, la Iglesia Católica celebra la maternidad divina de María, reconociéndola como Madre de Dios (Theotokos), dogma definido en el Concilio de Éfeso en el año 431. Esta solemnidad cierra la octava de Navidad e invita a contemplar a María como modelo de fe y acogida de la Palabra.",
+      "tags": ["Solemnidad", "Virgen María", "Dogma", "Año Nuevo"]
+    },
+    {
+      "fecha": "1-17",
+      "dia": 17,
+      "mes": 1,
+      "nombre": "San Antonio Abad",
+      "tipo": "principal",
+      "descripcion_corta": "Padre del monacato cristiano (251–356)",
+      "biografia": "Nacido en Egipto, San Antonio renunció a sus bienes a los veinte años y se retiró al desierto para vivir en oración y penitencia. Es considerado el padre del monacato cristiano. Su vida fue escrita por San Atanasio y sirvió de inspiración a miles de monjes en Oriente y Occidente. Murió a los 105 años.",
+      "tags": ["Monje", "Desierto", "Egipto", "S. IV", "Eremitismo"]
+    },
+    {
+      "fecha": "1-24",
+      "dia": 24,
+      "mes": 1,
+      "nombre": "San Francisco de Sales",
+      "tipo": "principal",
+      "descripcion_corta": "Doctor de la Iglesia, Obispo de Ginebra (1567–1622)",
+      "biografia": "Obispo de Ginebra y Doctor de la Iglesia, Francisco de Sales evangelizó el Chablais casi sin recursos, convirtiendo a miles de calvinistas. Escribió 'Introducción a la vida devota' y 'Tratado del amor de Dios', obras que siguen siendo referencia de espiritualidad. Junto con Santa Juana de Chantal fundó la Orden de la Visitación. Es patrono de los periodistas y escritores católicos.",
+      "tags": ["Doctor", "Obispo", "Escritor", "S. XVII", "Salesiano"]
+    },
+    {
+      "fecha": "3-19",
+      "dia": 19,
+      "mes": 3,
+      "nombre": "San José, esposo de la Virgen María",
+      "tipo": "principal",
+      "descripcion_corta": "Patrono de la Iglesia Universal y de los trabajadores",
+      "biografia": "Carpintero de Nazaret, esposo de María y padre adoptivo de Jesús. Su vida está marcada por la obediencia silenciosa a Dios, el trabajo honesto y la protección de la Sagrada Familia. El Papa Pío IX lo declaró patrono de la Iglesia Universal en 1870. El Papa Francisco le dedicó la exhortación apostólica Patris Corde en 2020.",
+      "tags": ["Solemnidad", "Patrono", "Trabajadores", "Familia", "Silencio"]
+    },
+    {
+      "fecha": "4-23",
+      "dia": 23,
+      "mes": 4,
+      "nombre": "San Jorge",
+      "tipo": "principal",
+      "descripcion_corta": "Mártir y caballero cristiano (†303)",
+      "biografia": "Soldado romano de origen capadocio, martirizado bajo el emperador Diocleciano por no renegar de su fe. La famosa leyenda del dragón es una alegoría de la victoria del bien sobre el mal y del cristiano sobre el pecado. Es patrono de Inglaterra, Cataluña, Portugal, Georgia y varios países más.",
+      "tags": ["Mártir", "Patrono", "S. IV", "Caballeros", "Inglaterra"]
+    },
+    {
+      "fecha": "6-13",
+      "dia": 13,
+      "mes": 6,
+      "nombre": "San Antonio de Padua",
+      "tipo": "principal",
+      "descripcion_corta": "Doctor de la Iglesia y Taumaturgo (1195–1231)",
+      "biografia": "Nacido en Lisboa, Portugal, ingresó primero a los agustinos y luego a los franciscanos atraído por el martirio. Doctor de la Iglesia y uno de los santos más populares del mundo, es conocido como el Taumaturgo o el santo de los milagros. Predicó con gran elocuencia en el norte de África, Francia e Italia. Murió a los 36 años en Padua.",
+      "tags": ["Doctor", "Franciscano", "Taumaturgo", "S. XIII", "Portugal"]
+    },
+    {
+      "fecha": "6-29",
+      "dia": 29,
+      "mes": 6,
+      "nombre": "San Pedro y San Pablo",
+      "tipo": "principal",
+      "descripcion_corta": "Apóstoles y pilares de la Iglesia",
+      "biografia": "Solemnidad de los dos grandes apóstoles. Pedro, el pescador de Galilea, fue el primero entre los apóstoles y primer papa de la Iglesia. Pablo, el fariseo perseguidor convertido en el camino a Damasco, se convirtió en el apóstol de los gentiles. Ambos murieron mártires en Roma durante el reinado de Nerón.",
+      "tags": ["Solemnidad", "Apóstoles", "Roma", "Mártires", "Pedro", "Pablo"]
+    },
+    {
+      "fecha": "7-25",
+      "dia": 25,
+      "mes": 7,
+      "nombre": "Santiago Apóstol",
+      "tipo": "principal",
+      "descripcion_corta": "Apóstol y patrón de España",
+      "biografia": "Hijo de Zebedeo y hermano de Juan Evangelista, fue uno de los tres apóstoles más cercanos a Jesús. Patrón de España. Según la tradición, predicó en la Península Ibérica antes de ser martirizado por Herodes Agripa en Jerusalén hacia el año 44, siendo el primer apóstol en morir por la fe. Sus restos, según la tradición, descansan en Santiago de Compostela.",
+      "tags": ["Solemnidad", "Apóstol", "España", "Patrón", "Peregrinos"]
+    },
+    {
+      "fecha": "8-15",
+      "dia": 15,
+      "mes": 8,
+      "nombre": "Asunción de la Virgen María",
+      "tipo": "principal",
+      "descripcion_corta": "María fue llevada al cielo en cuerpo y alma",
+      "biografia": "Dogma de Fe definido por el Papa Pío XII en la constitución apostólica Munificentissimus Deus el 1 de noviembre de 1950. Celebra que la Virgen María, al terminar su vida terrena, fue asumida en cuerpo y alma a la gloria celestial. Es una de las cuatro solemnidades marianas del año litúrgico y fiesta de precepto en casi todo el mundo.",
+      "tags": ["Solemnidad", "Dogma", "Virgen María", "Pío XII", "Precepto"]
+    },
+    {
+      "fecha": "8-28",
+      "dia": 28,
+      "mes": 8,
+      "nombre": "San Agustín de Hipona",
+      "tipo": "principal",
+      "descripcion_corta": "Doctor de la Iglesia y Padre de Occidente (354–430)",
+      "biografia": "Nacido en Tagaste, África del Norte, de padre pagano y madre cristiana (Santa Mónica). Llevó una vida disipada en su juventud antes de convertirse gracias a las oraciones de su madre y la predicación de San Ambrosio. Obispo de Hipona, Doctor de la Iglesia y uno de los más grandes teólogos de la historia. Sus obras 'Las Confesiones' y 'La Ciudad de Dios' siguen siendo lecturas fundamentales. Dejó escrito: 'Nos hiciste para Ti, Señor, y nuestro corazón está inquieto hasta que descanse en Ti'.",
+      "tags": ["Doctor", "Obispo", "S. V", "Teología", "África", "Confesiones"]
+    },
+    {
+      "fecha": "10-4",
+      "dia": 4,
+      "mes": 10,
+      "nombre": "San Francisco de Asís",
+      "tipo": "principal",
+      "descripcion_corta": "Fundador de los franciscanos y patrono de la ecología (1181–1226)",
+      "biografia": "Nacido en Asís como Giovanni di Pietro di Bernardone, hijo de un próspero comerciante. Tras una conversión profunda renunció a todos sus bienes y abrazó la pobreza radical. Fundó la Orden de los Frailes Menores, la Orden de las Clarisas junto a Santa Clara, y la Orden Tercera. Recibió los estigmas de Cristo en el monte Alvernia. Autor del Cántico de las Criaturas, uno de los primeros textos literarios en italiano.",
+      "tags": ["Fundador", "Franciscanos", "Ecología", "S. XIII", "Estigmas", "Pobreza"]
+    },
+    {
+      "fecha": "11-1",
+      "dia": 1,
+      "mes": 11,
+      "nombre": "Todos los Santos",
+      "tipo": "principal",
+      "descripcion_corta": "Solemnidad de todos los santos del cielo",
+      "biografia": "La Iglesia celebra a todos los santos del cielo, conocidos y desconocidos, canonizados y no canonizados. Es una solemnidad de precepto en la que se reconoce que el cielo está poblado de almas santas que interceden por los que aún peregrinamos en la tierra. Su origen remonta al siglo IV y fue extendida a toda la Iglesia por el Papa Gregorio IV en el año 835.",
+      "tags": ["Solemnidad", "Cielo", "Comunión de Santos", "Precepto"]
+    },
+    {
+      "fecha": "12-8",
+      "dia": 8,
+      "mes": 12,
+      "nombre": "Inmaculada Concepción de María",
+      "tipo": "principal",
+      "descripcion_corta": "Dogma definido por el Papa Pío IX en 1854",
+      "biografia": "Solemnidad que celebra que María fue preservada del pecado original desde el instante de su concepción, en previsión de los méritos de la Redención de Cristo. Dogma definido solemnemente el 8 de diciembre de 1854 por el Papa Pío IX en la bula Ineffabilis Deus. Cuatro años después, en 1858, la Virgen se apareció en Lourdes a Bernadette Soubirous diciéndole: 'Yo soy la Inmaculada Concepción'.",
+      "tags": ["Solemnidad", "Dogma", "Virgen María", "Inmaculada", "Pío IX", "Lourdes"]
+    },
+    {
+      "fecha": "12-25",
+      "dia": 25,
+      "mes": 12,
+      "nombre": "Natividad del Señor",
+      "tipo": "principal",
+      "descripcion_corta": "Solemnidad del nacimiento de Jesucristo",
+      "biografia": "La gran solemnidad del nacimiento de Jesucristo, el Hijo eterno de Dios hecho hombre en el seno de la Virgen María. Celebrada litúrgicamente desde el siglo IV, marca el inicio del tiempo de Navidad. La Iglesia celebra tres Misas: la de medianoche, la de la aurora y la del día, cada una con su propio sentido teológico.",
+      "tags": ["Solemnidad", "Navidad", "Encarnación", "Precepto", "S. IV"]
+    }
+  ]
+}

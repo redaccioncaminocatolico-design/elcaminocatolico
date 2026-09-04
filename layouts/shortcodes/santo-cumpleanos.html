@@ -1,1 +1,93 @@
 
+{{/* 
+  Shortcode: santo-cumpleanos
+  Uso en cualquier página de Hugo: {{< santo-cumpleanos >}}
+  Coloca el widget "¿Cuál es tu santo?" con los datos de /data/santoral.json
+*/}}
+{{ $santoral := .Site.Data.santoral.santos }}
+
+<div class="widget-santo-cumple">
+  <div class="widget-santo-header">
+    <span class="widget-santo-icono">✝</span>
+    <div>
+      <h3 class="widget-santo-titulo">¿Cuál es tu santo?</h3>
+      <p class="widget-santo-sub">Ingresá tu fecha de nacimiento</p>
+    </div>
+  </div>
+
+  <div class="widget-santo-form">
+    <input type="date" id="cumple-input" class="cumple-input" />
+    <button onclick="buscarSanto()" class="cumple-btn">Buscar</button>
+  </div>
+  <p class="cumple-error" id="cumple-error" style="display:none">Por favor ingresá una fecha.</p>
+
+  <div class="cumple-resultado" id="cumple-resultado" style="display:none">
+    <p class="cumple-resultado-fecha" id="cumple-fecha-label"></p>
+    <ul class="cumple-lista" id="cumple-lista"></ul>
+    <a href="/santos/" class="cumple-link-seccion">Ver todos los santos →</a>
+  </div>
+</div>
+
+<!-- Base de datos del santoral embebida como JSON -->
+<script>
+const SANTORAL_DATA = [
+  {{ range $i, $s := $santoral }}
+  {{ if $i }},{{ end }}
+  {
+    "fecha": "{{ .fecha }}",
+    "dia": {{ .dia }},
+    "mes": {{ .mes }},
+    "nombre": {{ .nombre | jsonify }},
+    "tipo": "{{ .tipo }}",
+    "descripcion_corta": {{ .descripcion_corta | jsonify }}
+  }
+  {{ end }}
+];
+
+const MESES_ES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+function buscarSanto() {
+  const input = document.getElementById('cumple-input');
+  const errorEl = document.getElementById('cumple-error');
+  const resultado = document.getElementById('cumple-resultado');
+  errorEl.style.display = 'none';
+  resultado.style.display = 'none';
+
+  if (!input.value) {
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  const fecha = new Date(input.value + 'T00:00:00');
+  const mes = fecha.getMonth() + 1;
+  const dia = fecha.getDate();
+  const key = mes + '-' + dia;
+
+  const santos = SANTORAL_DATA.filter(s => s.fecha === key);
+  const fechaLabel = document.getElementById('cumple-fecha-label');
+  fechaLabel.textContent = dia + ' de ' + MESES_ES[mes - 1];
+
+  const lista = document.getElementById('cumple-lista');
+  lista.innerHTML = '';
+
+  if (santos.length === 0) {
+    lista.innerHTML = '<li class="cumple-item cumple-vacio">Todavía no tenemos información para este día. ¡Pronto lo agregaremos!</li>';
+  } else {
+    santos.forEach(function(s) {
+      const li = document.createElement('li');
+      li.className = 'cumple-item';
+      li.innerHTML =
+        '<span class="cumple-badge cumple-badge-' + s.tipo + '">' +
+          (s.tipo === 'principal' ? 'Principal' : 'Secundario') +
+        '</span>' +
+        '<div>' +
+          '<strong class="cumple-nombre">' + s.nombre + '</strong>' +
+          '<span class="cumple-desc">' + s.descripcion_corta + '</span>' +
+        '</div>';
+      lista.appendChild(li);
+    });
+  }
+
+  resultado.style.display = 'block';
+}
+</script>

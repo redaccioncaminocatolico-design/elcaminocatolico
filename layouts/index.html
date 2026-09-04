@@ -7,7 +7,7 @@
     </div>
 </section>
 
-{{% santo-cumpleanos %}}
+{{ partial "santo-cumpleanos.html" . }}
 
 {{ $featured := first 1 (where .Site.RegularPages "Params.featured" true) }}
 {{ if $featured }}

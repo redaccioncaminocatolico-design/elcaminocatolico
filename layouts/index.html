@@ -7,6 +7,8 @@
     </div>
 </section>
 
+{{< santo-cumpleanos >}}
+
 {{ $featured := first 1 (where .Site.RegularPages "Params.featured" true) }}
 {{ if $featured }}
 <section class="featured-section">

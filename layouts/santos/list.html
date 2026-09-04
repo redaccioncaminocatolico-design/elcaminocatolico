@@ -1,0 +1,124 @@
+{{ define "main" }}
+{{ $santoral := site.Data.santoral.santos }}
+
+<section class="santos-page">
+  <div class="santos-header">
+    <h1>Santoral Católico</h1>
+    <p class="santos-intro">Vidas de los santos ordenadas por fecha del calendario litúrgico. Una base que crece con el tiempo, construida desde fuentes primarias.</p>
+  </div>
+
+  <!-- Buscador y filtro por mes -->
+  <div class="santos-controles">
+    <input
+      type="text"
+      id="buscador-santos"
+      placeholder="Buscar santo por nombre..."
+      oninput="filtrarSantos()"
+      class="santos-buscador"
+    />
+    <div class="meses-filtro">
+      <button class="mes-btn activo" onclick="setMes('todos', this)">Todos</button>
+      {{ $meses := slice "Enero" "Febrero" "Marzo" "Abril" "Mayo" "Junio" "Julio" "Agosto" "Septiembre" "Octubre" "Noviembre" "Diciembre" }}
+      {{ range $i, $m := $meses }}
+        <button class="mes-btn" onclick="setMes({{ add $i 1 }}, this)">{{ $m }}</button>
+      {{ end }}
+    </div>
+  </div>
+
+  <!-- Grilla de santos -->
+  <div class="santos-grilla" id="santos-grilla">
+    {{ range $santoral }}
+    <article
+      class="santo-card"
+      data-mes="{{ .mes }}"
+      data-nombre="{{ .nombre | lower }}"
+      data-tipo="{{ .tipo }}"
+    >
+      <div class="santo-card-fecha">
+        {{ .dia }} de
+        {{ $mesesNombres := slice "Enero" "Febrero" "Marzo" "Abril" "Mayo" "Junio" "Julio" "Agosto" "Septiembre" "Octubre" "Noviembre" "Diciembre" }}
+        {{ index $mesesNombres (sub (int .mes) 1) }}
+      </div>
+      <div class="santo-card-tipo {{ .tipo }}">{{ if eq .tipo "principal" }}Fiesta principal{{ else }}Conmemoración{{ end }}</div>
+      <h2 class="santo-card-nombre">{{ .nombre }}</h2>
+      <p class="santo-card-desc">{{ .descripcion_corta }}</p>
+      <div class="santo-tags">
+        {{ range .tags }}
+        <span class="santo-tag">{{ . }}</span>
+        {{ end }}
+      </div>
+      <button class="santo-ver-mas" onclick="abrirSanto(this)" data-bio="{{ .biografia | htmlEscape }}">
+        Leer más
+      </button>
+    </article>
+    {{ end }}
+  </div>
+
+  <p class="santos-contador" id="santos-contador">
+    Mostrando {{ len $santoral }} santos
+  </p>
+</section>
+
+<!-- Panel lateral de detalle -->
+<div class="santo-panel-overlay" id="panel-overlay" onclick="cerrarSanto()"></div>
+<aside class="santo-panel" id="santo-panel" aria-hidden="true">
+  <button class="panel-cerrar" onclick="cerrarSanto()" aria-label="Cerrar">✕</button>
+  <p class="panel-fecha" id="panel-fecha"></p>
+  <h2 class="panel-nombre" id="panel-nombre"></h2>
+  <p class="panel-desc" id="panel-desc"></p>
+  <div class="panel-bio" id="panel-bio"></div>
+  <div class="panel-tags" id="panel-tags"></div>
+</aside>
+
+<script>
+let mesFiltro = 'todos';
+
+function setMes(mes, btn) {
+  mesFiltro = mes;
+  document.querySelectorAll('.mes-btn').forEach(b => b.classList.remove('activo'));
+  btn.classList.add('activo');
+  filtrarSantos();
+}
+
+function filtrarSantos() {
+  const q = document.getElementById('buscador-santos').value.toLowerCase();
+  const cards = document.querySelectorAll('.santo-card');
+  let visibles = 0;
+  cards.forEach(card => {
+    const nombreOk = !q || card.dataset.nombre.includes(q);
+    const mesOk = mesFiltro === 'todos' || parseInt(card.dataset.mes) === parseInt(mesFiltro);
+    const mostrar = nombreOk && mesOk;
+    card.style.display = mostrar ? '' : 'none';
+    if (mostrar) visibles++;
+  });
+  document.getElementById('santos-contador').textContent = 'Mostrando ' + visibles + ' santos';
+}
+
+function abrirSanto(btn) {
+  const card = btn.closest('.santo-card');
+  document.getElementById('panel-fecha').textContent = card.querySelector('.santo-card-fecha').textContent.trim();
+  document.getElementById('panel-nombre').textContent = card.querySelector('.santo-card-nombre').textContent.trim();
+  document.getElementById('panel-desc').textContent = card.querySelector('.santo-card-desc').textContent.trim();
+  document.getElementById('panel-bio').textContent = btn.dataset.bio;
+  const tags = card.querySelectorAll('.santo-tag');
+  const tagsEl = document.getElementById('panel-tags');
+  tagsEl.innerHTML = '';
+  tags.forEach(t => {
+    const span = document.createElement('span');
+    span.className = 'santo-tag';
+    span.textContent = t.textContent;
+    tagsEl.appendChild(span);
+  });
+  document.getElementById('santo-panel').classList.add('abierto');
+  document.getElementById('panel-overlay').classList.add('activo');
+  document.getElementById('santo-panel').setAttribute('aria-hidden', 'false');
+}
+
+function cerrarSanto() {
+  document.getElementById('santo-panel').classList.remove('abierto');
+  document.getElementById('panel-overlay').classList.remove('activo');
+  document.getElementById('santo-panel').setAttribute('aria-hidden', 'true');
+}
+</script>
+
+{{ end }}

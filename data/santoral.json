@@ -149,6 +149,56 @@
       "descripcion_corta": "Mártir de la caridad en Auschwitz (1894–1941)",
       "biografia": "Nacido el 8 de enero de 1894 en Zduńska Wola, Polonia, Raymond Kolbe ingresó a la Orden de los Frailes Menores Conventuales tomando el nombre de Maximiliano. Fundó la Milicia de la Inmaculada en 1917, una asociación mariana que llegó a tener millones de miembros en todo el mundo, y estableció la Ciudad de la Inmaculada (Niepokalanów), un enorme convento-editorial desde el que difundía la fe católica. Fue misionero en Japón, donde fundó otra Ciudad de la Inmaculada en Nagasaki. En 1941, durante la ocupación nazi de Polonia, fue arrestado y deportado al campo de concentración de Auschwitz. Cuando un prisionero escapó, los nazis seleccionaron a diez hombres para morir de hambre en represalia. Maximiliano se ofreció voluntariamente a ocupar el lugar de uno de ellos, Francisco Gajowniczek, que tenía mujer e hijos. Murió el 14 de agosto de 1941, víspera de la Asunción, tras ser inyectado con ácido carbólico. Fue canonizado por el Papa Juan Pablo II en 1982, quien lo proclamó mártir de la caridad. Francisco Gajowniczek estuvo presente en su canonización.",
       "tags": ["Mártir", "Franciscano", "Polonia", "S. XX", "Auschwitz", "Milicia de la Inmaculada"]
-    }
+    },
+    {
+      "fecha": "9-5",
+      "dia": 5,
+      "mes": 9,
+      "nombre": "Santa Teresa de Calcuta",
+      "tipo": "principal",
+      "descripcion_corta": "Fundadora de las Misioneras de la Caridad, apóstol de los más pobres (1910–1997)",
+      "biografia": "Nacida el 26 de agosto de 1910 en Skopie (actual Macedonia del Norte) como Agnes Gonxha Bojaxhiu, sintió desde joven el llamado a la vida religiosa. A los 18 años partió hacia la India, donde profesó en las Hermanas de Loreto y comenzó a enseñar en Calcuta. En 1946, durante un viaje en tren, vivió lo que ella llamó 'una llamada dentro de una llamada': Dios le pedía dejar el convento para servir a los más pobres entre los pobres. En 1950 fundó las Misioneras de la Caridad, congregación que se extendió por todo el mundo atendiendo a enfermos, moribundos, huérfanos y leprosos. Abrió la Casa de los Moribundos en Calcuta, donde miles de personas pudieron morir con dignidad. En 1979 recibió el Premio Nobel de la Paz. Murió el 5 de septiembre de 1997 en Calcuta. Fue beatificada por Juan Pablo II en 2003 y canonizada por el Papa Francisco el 4 de septiembre de 2016. Su festividad fue inscripta en el Calendario Romano General.",
+      "tags": ["Virgen", "Fundadora", "Misionera", "Premio Nobel", "India", "S. XX", "Pobres"]
+    },
+    {
+      "fecha": "9-5",
+      "dia": 5,
+      "mes": 9,
+      "nombre": "San Lorenzo Justiniano",
+      "tipo": "secundario",
+      "descripcion_corta": "Primer Patriarca de Venecia, modelo de vida contemplativa y activa (1381–1456)",
+      "biografia": "Nacido en 1381 en Venecia, en el seno de una familia noble, Lorenzo rechazó desde joven las riquezas y el matrimonio para consagrarse a Dios. Ingresó a la congregación de San Jorge in Alga, donde llevó una vida de oración y penitencia. Fue ordenado sacerdote y luego elegido prior general de su congregación. En 1433 fue nombrado obispo de Castello y en 1451 el Papa Nicolás V lo designó primer Patriarca de Venecia. Gobernó su diócesis con gran humildad y celo pastoral, visitando personalmente a los pobres y enfermos. Escribió numerosas obras espirituales sobre la vida interior y la perfección cristiana. Murió el 8 de enero de 1456. Fue beatificado en 1524 por el Papa Clemente VII y canonizado en 1690 por el Papa Alejandro VIII.",
+      "tags": ["Obispo", "Patriarca", "Venecia", "Italia", "S. XV", "Contemplativo"]
+    },
+    {
+      "fecha": "9-5",
+      "dia": 5,
+      "mes": 9,
+      "nombre": "Santos Aconcio, Nono, Herculano y Taurino",
+      "tipo": "secundario",
+      "descripcion_corta": "Mártires de la antigua Porto, en Italia",
+      "biografia": "Aconcio, Nono, Herculano y Taurino fueron mártires que sufrieron el martirio en Porto, el antiguo puerto de Roma situado en la desembocadura del Tíber, conocido hoy como Fiumicino. Los detalles históricos de su vida son escasos, pero su culto es antiguo y arraigado en esa región. El Papa Formoso trasladó las reliquias de Nono, Herculano y Taurino a la isla Tiberina en Roma. Una iglesia dedicada a Aconcio aparece mencionada en un documento del siglo X. Son venerados juntos como testigos de la fe cristiana en los primeros siglos de la Iglesia.",
+      "tags": ["Mártires", "Italia", "Roma", "Primeros siglos", "Porto"]
+    },
+    {
+      "fecha": "9-5",
+      "dia": 5,
+      "mes": 9,
+      "nombre": "San Bertín",
+      "tipo": "secundario",
+      "descripcion_corta": "Abad benedictino misionero en la región de Flandes (615–709)",
+      "biografia": "Nacido alrededor del año 615 en la región de Constances, en Francia, Bertín ingresó al monasterio de Luxeuil bajo la dirección de San Ouen. Fue enviado como misionero a la región de los Morinos, en la actual Bélgica y norte de Francia, junto a San Mombelino y San Bertrand. Fundó el monasterio de Sithiu, que con el tiempo tomó su nombre y se convirtió en la Abadía de Saint-Bertin, en Saint-Omer. Fue un evangelizador incansable de las poblaciones paganas de Flandes y gobernó su monasterio con gran santidad durante décadas. Murió alrededor del año 709. Su culto se extendió ampliamente por toda la región noroccidental de Europa.",
+      "tags": ["Abad", "Benedictino", "Misionero", "Francia", "Bélgica", "S. VII"]
+    },
+    {
+      "fecha": "9-5",
+      "dia": 5,
+      "mes": 9,
+      "nombre": "Santa Obdulia",
+      "tipo": "secundario",
+      "descripcion_corta": "Virgen y mártir venerada en Toledo, España",
+      "biografia": "Santa Obdulia es una virgen y mártir cristiana cuyo culto está especialmente arraigado en Toledo, España, donde sus reliquias fueron veneradas durante siglos en la iglesia de San Salvador. Según la tradición, vivió durante los primeros siglos del cristianismo en la Península Ibérica y entregó su vida por la fe. Los datos históricos sobre su vida son escasos, pero su culto es antiguo y fue reconocido por la Iglesia. Es una de las santas más populares del santoral toledano y su nombre, de origen visigótico, ha perdurado en la devoción popular hispana a lo largo de los siglos.",
+      "tags": ["Virgen", "Mártir", "España", "Toledo", "Primeros siglos"]
+    }  
   ]
 }

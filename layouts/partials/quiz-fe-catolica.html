@@ -1,30 +1,29 @@
-{{/*
+<!--
   Partial: quiz-fe-catolica.html
-  Uso desde una página: {{ partial "quiz-fe-catolica.html" . }}
-  Uso como shortcode:   {{</* quiz-fe-catolica */>}}
-  Fuentes doctrinales:  Catecismo de la Iglesia Católica (Vatican.va) · Sagrada Escritura
-*/}}
+  Uso desde una pagina: partial "quiz-fe-catolica.html"
+  Fuentes doctrinales:  Catecismo de la Iglesia Catolica (Vatican.va) - Sagrada Escritura
+-->
 
 <section class="qfc-wrap" aria-label="Quiz de Fe Católica">
 
   <div class="qfc-card">
 
-    {{/* ── ENCABEZADO ── */}}
+    <!-- ENCABEZADO -->
     <header class="qfc-header">
       <span class="qfc-cruz" aria-hidden="true">✝</span>
       <h2 class="qfc-titulo">Quiz de Fe Católica</h2>
       <p class="qfc-subtitulo">Pon a prueba tu conocimiento</p>
     </header>
 
-    {{/* ── BARRA DE PROGRESO ── */}}
+    <!-- BARRA DE PROGRESO -->
     <div class="qfc-progress" role="progressbar" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" aria-label="Progreso del quiz">
       <div class="qfc-progress-fill" id="qfc-barra" style="width:0%"></div>
     </div>
 
-    {{/* ── CUERPO ── */}}
+    <!-- CUERPO -->
     <div class="qfc-body">
 
-      {{/* PANTALLA INICIO */}}
+      <!-- PANTALLA INICIO -->
       <div id="qfc-inicio" class="qfc-pantalla">
         <div class="qfc-temas">
           <span class="qfc-tema">📖 Biblia</span>
@@ -39,7 +38,7 @@
         <p class="qfc-marca">El Camino Católico</p>
       </div>
 
-      {{/* PANTALLA QUIZ */}}
+      <!-- PANTALLA QUIZ -->
       <div id="qfc-quiz" class="qfc-pantalla" style="display:none" aria-live="polite">
         <div class="qfc-meta">
           <span class="qfc-badge" id="qfc-cat"></span>
@@ -51,7 +50,7 @@
         <button class="qfc-btn-sig" id="qfc-btn-sig" onclick="qfcSiguiente()" style="display:none"></button>
       </div>
 
-      {{/* PANTALLA RESULTADO */}}
+      <!-- PANTALLA RESULTADO -->
       <div id="qfc-fin" class="qfc-pantalla qfc-fin" style="display:none" aria-live="polite">
         <span class="qfc-icono-fin" id="qfc-icono-fin" aria-hidden="true">🏆</span>
         <div class="qfc-puntaje" id="qfc-puntaje">0</div>
@@ -62,9 +61,9 @@
         <button class="qfc-btn-primario" onclick="qfcReiniciar()">Jugar con otras preguntas</button>
       </div>
 
-    </div>{{/* /qfc-body */}}
+    </div><!-- /qfc-body -->
 
-    {{/* ── PIE DE FUENTES ── */}}
+    <!-- PIE DE FUENTES -->
     <footer class="qfc-footer">
       <p class="qfc-fuentes">
         <strong>Fuentes:</strong>
@@ -77,13 +76,11 @@
       </p>
     </footer>
 
-  </div>{{/* /qfc-card */}}
+  </div><!-- /qfc-card -->
 
 </section>
 
-{{/* ══════════════════════════════════════════
-     ESTILOS  (scoped con prefijo qfc-)
-     ══════════════════════════════════════════ */}}
+<!-- ESTILOS (scoped con prefijo qfc-) -->
 <style>
 .qfc-wrap { max-width: 640px; margin: 2rem auto; padding: 0 1rem; font-family: Georgia, 'Times New Roman', serif; }
 
@@ -180,9 +177,7 @@
 }
 </style>
 
-{{/* ══════════════════════════════════════════
-     BANCO DE PREGUNTAS + LÓGICA
-     ══════════════════════════════════════════ */}}
+<!-- BANCO DE PREGUNTAS + LOGICA -->
 <script>
 (function () {
   /* ── Banco de preguntas ── */

@@ -1,0 +1,167 @@
+{{/* layouts/partials/widget-liturgico.html */}}
+
+<div class="widget-liturgico">
+  <p class="wl-label">✝ Hoy en la liturgia</p>
+  <div class="wl-tiempo" id="wl-tiempo"></div>
+  <div class="wl-color-row">
+    <div class="wl-swatch" id="wl-swatch"></div>
+    <span class="wl-color-text" id="wl-color-text"></span>
+  </div>
+  <p class="wl-fiesta" id="wl-fiesta"></p>
+  <a class="wl-link" href="/calendario/">Ver calendario completo →</a>
+</div>
+
+<style>
+.widget-liturgico {
+  background: #fff;
+  border: 1px solid #e2d9c0;
+  border-radius: 12px;
+  padding: 1.25rem;
+}
+.wl-label {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.wl-tiempo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin-bottom: 10px;
+}
+.wl-color-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.wl-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.wl-color-text {
+  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1a1a1a;
+}
+.wl-fiesta {
+  margin: 0 0 10px;
+  font-size: 12px;
+  color: #555;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  line-height: 1.4;
+  padding-top: 8px;
+  border-top: 1px solid #f0eadc;
+}
+.wl-link {
+  font-size: 12px;
+  color: #c5b97a;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-decoration: none;
+  display: block;
+  text-align: right;
+}
+.wl-link:hover { text-decoration: underline; }
+</style>
+
+<script>
+(function () {
+  function pascua(y) {
+    var a=y%19,b=Math.floor(y/100),c=y%100,d=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25);
+    var g=Math.floor((b-f+1)/3),h=(19*a+b-d-g+15)%30,i=Math.floor(c/4),k=c%4;
+    var l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451);
+    var mes=Math.floor((h+l-7*m+114)/31),dia=((h+l-7*m+114)%31)+1;
+    return new Date(y,mes-1,dia);
+  }
+  function addD(d,n){var r=new Date(d);r.setDate(r.getDate()+n);return r;}
+  function sameD(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
+  function s0(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
+  function calcAdv(yr){
+    var nd=new Date(yr,11,25),dow=nd.getDay(),adv=new Date(nd);
+    adv.setDate(adv.getDate()-(dow===0?28:dow+21));
+    while(adv.getDay()!==0)adv.setDate(adv.getDate()-1);
+    return adv;
+  }
+  function calcEp(yr){var ep=new Date(yr,0,6);while(ep.getDay()!==0)ep.setDate(ep.getDate()+1);return ep;}
+  function baut(yr){return addD(calcEp(yr),7);}
+
+  var f=new Date(),y=f.getFullYear(),p=pascua(y),d0=s0(f);
+  var adv=calcAdv(y),bt=baut(y),cen=addD(p,-46);
+  var diff=Math.round((d0-s0(p))/86400000);
+
+  var tiempo='ordinario';
+  if(d0>=s0(adv)) tiempo='adviento';
+  else if(d0>=s0(new Date(y-1,11,25))&&d0<s0(bt)) tiempo='navidad';
+  else if(d0>=s0(bt)&&d0<s0(cen)) tiempo='ordinario';
+  else if(d0>=s0(cen)&&d0<s0(p)) tiempo='cuaresma';
+  else if(d0>=s0(p)&&d0<=s0(addD(p,49))) tiempo='pascua';
+
+  var TIEMPOS={
+    adviento: {n:'Adviento',e:'🕯️',bg:'#3d1a6e',c:'#d4a8ff'},
+    navidad:  {n:'Navidad',e:'⭐',bg:'#7a5c00',c:'#fffbe6'},
+    cuaresma: {n:'Cuaresma',e:'✝️',bg:'#3d1a6e',c:'#d4a8ff'},
+    pascua:   {n:'Tiempo Pascual',e:'✝️',bg:'#7a5c00',c:'#fffbe6'},
+    ordinario:{n:'Tiempo Ordinario',e:'🌿',bg:'#1a4a1a',c:'#c8f0c8'}
+  };
+  var COLORES={
+    verde: {h:'#2d6a2d',n:'Verde — Esperanza'},
+    morado:{h:'#5b2d8a',n:'Morado — Penitencia'},
+    blanco:{h:'#e8dfc0',n:'Blanco — Alegría',b:true},
+    rojo:  {h:'#c0392b',n:'Rojo — Martirio'},
+    rosa:  {h:'#c17b9e',n:'Rosa — Alegría anticipada'}
+  };
+
+  var colorKey='verde';
+  if(tiempo==='adviento'||tiempo==='cuaresma') colorKey='morado';
+  else if(tiempo==='navidad'||tiempo==='pascua') colorKey='blanco';
+
+  var fiesta='';
+  var m2=f.getMonth()+1,d2=f.getDate();
+  if(diff===0)  fiesta='Resurrección del Señor';
+  else if(diff===49) fiesta='Pentecostés';
+  else if(diff===39) fiesta='Ascensión del Señor';
+  else if(diff===56) fiesta='Santísima Trinidad';
+  else if(diff===60) fiesta='Corpus Christi';
+  else if(sameD(f,cen)) fiesta='Miércoles de Ceniza';
+  else if(sameD(f,addD(p,-7))) fiesta='Domingo de Ramos';
+  else if(diff===-3) fiesta='Jueves Santo';
+  else if(diff===-2) fiesta='Viernes Santo';
+  else if(m2===1&&d2===1)   fiesta='Santísima María, Madre de Dios';
+  else if(m2===3&&d2===19)  fiesta='San José';
+  else if(m2===3&&d2===25)  fiesta='Anunciación del Señor';
+  else if(m2===6&&d2===24)  fiesta='Natividad de San Juan Bautista';
+  else if(m2===6&&d2===29)  fiesta='San Pedro y San Pablo';
+  else if(m2===8&&d2===15)  fiesta='Asunción de la Virgen María';
+  else if(m2===10&&d2===7)  fiesta='Nuestra Señora del Rosario';
+  else if(m2===11&&d2===1)  fiesta='Todos los Santos';
+  else if(m2===12&&d2===8)  fiesta='Inmaculada Concepción';
+  else if(m2===12&&d2===12) fiesta='Nuestra Señora de Guadalupe';
+  else if(m2===12&&d2===25) fiesta='Natividad del Señor';
+
+  var crRey=addD(calcAdv(y),-7);
+  if(sameD(f,crRey)) fiesta='Cristo Rey del Universo';
+  if(sameD(f,bt)) fiesta='Bautismo del Señor';
+
+  var t=TIEMPOS[tiempo],col=COLORES[colorKey];
+
+  var el=document.getElementById('wl-tiempo');
+  el.style.background=t.bg; el.style.color=t.c;
+  el.textContent=t.e+' '+t.n;
+
+  var sw=document.getElementById('wl-swatch');
+  sw.style.background=col.h;
+  if(col.b) sw.style.border='1px solid #ccc';
+  document.getElementById('wl-color-text').textContent=col.n;
+  document.getElementById('wl-fiesta').textContent=fiesta?'Hoy: '+fiesta:'Sin solemnidad especial hoy';
+})();
+</script>

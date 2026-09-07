@@ -8,6 +8,7 @@
 </section>
 
 {{ partial "santo-cumpleanos.html" . }}
+{{ partial "widget-liturgico.html" . }}
 
 {{ $featured := first 1 (where .Site.RegularPages "Params.featured" true) }}
 {{ if $featured }}

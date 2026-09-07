@@ -262,7 +262,9 @@
   var idx = (hoy.getDate() + hoy.getMonth() * 31) % CITAS.length;
   var cita = CITAS[idx];
 
+  window.addEventListener('DOMContentLoaded', function() {
   document.getElementById('cita-texto').textContent = '\u201c' + cita.texto + '\u201d';
   document.getElementById('cita-fuente').textContent = cita.fuente;
+});
 })();
 </script>

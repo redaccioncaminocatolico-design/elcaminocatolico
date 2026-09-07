@@ -1,70 +1,268 @@
 {{ define "main" }}
+
 <section class="hero">
-    <div class="hero-inner">
-        <span class="eyebrow">YO SOY EL CAMINO, LA VERDAD Y LA VIDA — Jn 14,6</span>
-        <h1>Tu guía en la fe católica</h1>
-        <p class="subtitle">Artículos, oraciones y reflexiones para crecer en la fe, entender la doctrina y vivir el Evangelio.</p>
-    </div>
+  <div class="hero-inner">
+    <span class="eyebrow">YO SOY EL CAMINO, LA VERDAD Y LA VIDA — Jn 14,6</span>
+    <h1>Tu guía en la fe católica</h1>
+    <p class="subtitle">Artículos, oraciones y reflexiones para crecer en la fe, entender la doctrina y vivir el Evangelio.</p>
+  </div>
 </section>
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 860px; margin: 0 auto 2rem;">
-  {{ partial "santo-cumpleanos.html" . }}
-  {{ partial "widget-liturgico.html" . }}
-</div>
+<div class="home-layout">
 
-{{ $featured := first 1 (where .Site.RegularPages "Params.featured" true) }}
-{{ if $featured }}
-<section class="featured-section">
-    {{ range $featured }}
-    <article class="featured-article">
+  <div class="home-main">
+
+    {{ partial "santo-cumpleanos.html" . }}
+
+    {{ partial "widget-liturgico.html" . }}
+
+    {{ $featured := first 1 (where .Site.RegularPages "Params.featured" true) }}
+    {{ if $featured }}
+    <section class="featured-section">
+      {{ range $featured }}
+      <article class="featured-article">
         <a href="{{ .Permalink }}" class="featured-link">
-            <div class="featured-image">
-                <span class="placeholder-icon">✝</span>
+          <div class="featured-image">
+            <span class="placeholder-icon">✝</span>
+          </div>
+          <div class="featured-info">
+            <span class="featured-badge">Destacado</span>
+            <h2>{{ .Title }}</h2>
+            <div class="featured-meta">
+              <time>{{ .Date.Format "02 Ene 2006" }}</time> • {{ .Params.tiempo_lectura }} min de lectura
             </div>
-            <div class="featured-info">
-                <span class="featured-badge">Destacado</span>
-                <h2>{{ .Title }}</h2>
-                <div class="featured-meta">
-                    <time>{{ .Date.Format "02 Ene 2006" }}</time> • {{ .Params.tiempo_lectura }} min de lectura
-                </div>
-            </div>
+          </div>
         </a>
-    </article>
+      </article>
+      {{ end }}
+    </section>
     {{ end }}
-</section>
-{{ end }}
 
-<section class="latest-articles">
-    <div class="article-grid">
+    <section class="latest-articles">
+      <div class="article-grid">
         {{ $recent := first 6 (where .Site.RegularPages "Type" "articulos") }}
         {{ range $recent }}
         <article class="article-card">
-            <a href="{{ .Permalink }}">
-                <div class="card-image">
-                    <span class="placeholder-icon">✝</span>
-                </div>
-                <div class="card-content">
-                    <span class="card-category">{{ .Params.categoria | replaceRE "-" " " }}</span>
-                    <h3>{{ .Title }}</h3>
-                    <p class="card-excerpt">{{ .Params.descripcion }}</p>
-                </div>
-            </a>
+          <a href="{{ .Permalink }}">
+            <div class="card-image">
+              <span class="placeholder-icon">✝</span>
+            </div>
+            <div class="card-content">
+              <span class="card-category">{{ .Params.categoria | replaceRE "-" " " }}</span>
+              <h3>{{ .Title }}</h3>
+              <p class="card-excerpt">{{ .Params.descripcion }}</p>
+            </div>
+          </a>
         </article>
         {{ end }}
+      </div>
+    </section>
+
+  </div>
+
+  <aside class="home-sidebar">
+
+    <div class="sidebar-card">
+      <p class="sidebar-label">✝ Herramientas</p>
+      <nav class="sidebar-tools">
+        <a href="/calendario/" class="sidebar-tool-link">
+          <span class="tool-icon">📅</span>
+          <span class="tool-text">
+            <strong>Calendario litúrgico</strong>
+            <small>Tiempo, color y fiestas del día</small>
+          </span>
+        </a>
+        <a href="/quiz/" class="sidebar-tool-link">
+          <span class="tool-icon">✏️</span>
+          <span class="tool-text">
+            <strong>Quiz de fe católica</strong>
+            <small>Poné a prueba tu conocimiento</small>
+          </span>
+        </a>
+        <a href="/santos/" class="sidebar-tool-link">
+          <span class="tool-icon">🙏</span>
+          <span class="tool-text">
+            <strong>Santoral</strong>
+            <small>Buscá tu santo por fecha</small>
+          </span>
+        </a>
+      </nav>
     </div>
-</section>
+
+    <div class="sidebar-card sidebar-cita" id="sidebar-cita">
+      <p class="sidebar-label">✝ Palabra de hoy</p>
+      <blockquote class="cita-texto" id="cita-texto"></blockquote>
+      <cite class="cita-fuente" id="cita-fuente"></cite>
+    </div>
+
+  </aside>
+
+</div>
 
 <hr class="divider">
 
 <section class="explore-categories">
-    <div class="category-pills">
-        <a href="/categoria/fe-y-doctrina/" class="pill">Fe y doctrina</a>
-        <a href="/categoria/santos/" class="pill">Santos</a>
-        <a href="/categoria/oraciones/" class="pill">Oraciones</a>
-        <a href="/categoria/historia/" class="pill">Historia</a>
-        <a href="/categoria/apologetica/" class="pill">Apologética</a>
-        <a href="/categoria/virgen-maria/" class="pill">Virgen María</a>
-        <a href="/categoria/semana-santa/" class="pill">Semana Santa</a>
-    </div>
+  <div class="category-pills">
+    <a href="/categoria/fe-y-doctrina/" class="pill">Fe y doctrina</a>
+    <a href="/categoria/santos/" class="pill">Santos</a>
+    <a href="/categoria/oraciones/" class="pill">Oraciones</a>
+    <a href="/categoria/historia/" class="pill">Historia</a>
+    <a href="/categoria/apologetica/" class="pill">Apologética</a>
+    <a href="/categoria/virgen-maria/" class="pill">Virgen María</a>
+    <a href="/categoria/semana-santa/" class="pill">Semana Santa</a>
+  </div>
 </section>
+
 {{ end }}
+
+<style>
+.home-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto 1.5rem;
+  padding: 0 1rem;
+  align-items: start;
+}
+.home-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.home-sidebar {
+  position: sticky;
+  top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.sidebar-card {
+  background: #fff;
+  border: 1px solid #e2d9c0;
+  border-radius: 12px;
+  padding: 1.1rem 1.25rem;
+}
+.sidebar-label {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.sidebar-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sidebar-tool-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.15s;
+  border-bottom: 1px solid #f5f0e8;
+}
+.sidebar-tool-link:last-child {
+  border-bottom: none;
+}
+.sidebar-tool-link:hover {
+  background: #faf7f0;
+}
+.tool-icon {
+  font-size: 18px;
+  width: 28px;
+  text-align: center;
+  flex-shrink: 0;
+}
+.tool-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.tool-text strong {
+  font-size: 13px;
+  color: #0d2148;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 500;
+}
+.tool-text small {
+  font-size: 11px;
+  color: #999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.sidebar-cita {
+  border-left: 3px solid #c5b97a;
+  border-radius: 0 12px 12px 0;
+}
+.cita-texto {
+  margin: 0 0 8px;
+  font-size: 14px;
+  color: #2a2a2a;
+  font-style: italic;
+  line-height: 1.6;
+  font-family: Georgia, serif;
+}
+.cita-fuente {
+  font-size: 12px;
+  color: #a89050;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-style: normal;
+}
+@media (max-width: 680px) {
+  .home-layout {
+    grid-template-columns: 1fr;
+  }
+  .home-sidebar {
+    position: static;
+  }
+}
+</style>
+
+<script>
+(function () {
+  var CITAS = [
+    { texto: "Yo soy el camino, la verdad y la vida. Nadie va al Padre sino por mí.", fuente: "Jn 14,6" },
+    { texto: "El Señor es mi pastor, nada me falta.", fuente: "Sal 23,1" },
+    { texto: "Todo lo puedo en Cristo que me fortalece.", fuente: "Fil 4,13" },
+    { texto: "Amarás al Señor tu Dios con todo tu corazón, con toda tu alma y con toda tu mente.", fuente: "Mt 22,37" },
+    { texto: "La fe es la garantía de lo que se espera, la prueba de las realidades que no se ven.", fuente: "Heb 11,1" },
+    { texto: "Pedid y se os dará; buscad y encontraréis; llamad y se os abrirá.", fuente: "Mt 7,7" },
+    { texto: "Dios es amor, y quien permanece en el amor permanece en Dios y Dios en él.", fuente: "1 Jn 4,16" },
+    { texto: "No temas, porque yo estoy contigo; no te angusties, porque yo soy tu Dios.", fuente: "Is 41,10" },
+    { texto: "La caridad es paciente, es servicial; la caridad no es envidiosa, no es jactanciosa, no se engríe.", fuente: "1 Cor 13,4" },
+    { texto: "Venid a mí todos los que estáis cansados y agobiados, y yo os daré descanso.", fuente: "Mt 11,28" },
+    { texto: "El que persevere hasta el fin, ese se salvará.", fuente: "Mt 24,13" },
+    { texto: "Con Dios lo podemos todo; sin Él, nada.", fuente: "San Agustín" },
+    { texto: "La oración es el aliento del alma.", fuente: "Santa Teresa de Lisieux" },
+    { texto: "Dad a Dios lo que es de Dios.", fuente: "Mt 22,21" },
+    { texto: "En el principio era el Verbo, y el Verbo era Dios.", fuente: "Jn 1,1" },
+    { texto: "Bienaventurados los limpios de corazón, porque ellos verán a Dios.", fuente: "Mt 5,8" },
+    { texto: "Señor, haz de mí un instrumento de tu paz.", fuente: "San Francisco de Asís" },
+    { texto: "La cruz es el camino del cielo.", fuente: "San Juan de la Cruz" },
+    { texto: "Sed perfectos como vuestro Padre celestial es perfecto.", fuente: "Mt 5,48" },
+    { texto: "El que humilla a sí mismo será enaltecido.", fuente: "Mt 23,12" },
+    { texto: "Alaben al Señor, porque Él es bueno; su misericordia es eterna.", fuente: "Sal 136,1" },
+    { texto: "No os inquietéis por nada; sino presentad en toda ocasión vuestras peticiones a Dios.", fuente: "Fil 4,6" },
+    { texto: "La Virgen María es el modelo perfecto del alma entregada a Dios.", fuente: "Catecismo 967" },
+    { texto: "La Iglesia es el Cuerpo de Cristo; Cristo es la Cabeza de este Cuerpo.", fuente: "Catecismo 792" },
+    { texto: "Los sacramentos son signos eficaces de la gracia.", fuente: "Catecismo 1131" },
+    { texto: "La oración es la elevación del alma hacia Dios.", fuente: "Catecismo 2559" },
+    { texto: "Sin amor, las obras no valen nada.", fuente: "Santa Teresa de Ávila" },
+    { texto: "Confía en el Señor con todo tu corazón.", fuente: "Prov 3,5" },
+    { texto: "Buscad primero el Reino de Dios y su justicia, y todo lo demás se os dará por añadidura.", fuente: "Mt 6,33" },
+    { texto: "Para los que aman a Dios, todo coopera para el bien.", fuente: "Rom 8,28" },
+    { texto: "El Espíritu Santo es el alma de la Iglesia.", fuente: "Catecismo 797" },
+  ];
+
+  var hoy = new Date();
+  var idx = (hoy.getDate() + hoy.getMonth() * 31) % CITAS.length;
+  var cita = CITAS[idx];
+
+  document.getElementById('cita-texto').textContent = '\u201c' + cita.texto + '\u201d';
+  document.getElementById('cita-fuente').textContent = cita.fuente;
+})();
+</script>

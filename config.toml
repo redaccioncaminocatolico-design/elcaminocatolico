@@ -25,3 +25,8 @@ enableRobotsTXT = true
   changefreq = "weekly"
   priority = 0.5
   filename = "sitemap.xml"
+
+[[menu.main]]
+  name = "Calendario"
+  url = "/calendario/"
+  weight = 7

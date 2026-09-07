@@ -1,0 +1,12 @@
+{{/* layouts/calendario/single.html */}}
+{{ define "main" }}
+<article class="page-content">
+  <div class="page-intro">
+    <h1>{{ .Title }}</h1>
+    {{ with .Params.description }}
+    <p class="page-desc">{{ . }}</p>
+    {{ end }}
+  </div>
+  {{ partial "calendario-liturgico.html" . }}
+</article>
+{{ end }}

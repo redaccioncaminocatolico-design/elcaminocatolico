@@ -7,7 +7,10 @@
     </div>
 </section>
 
-{{ partial "santo-cumpleanos.html" . }} {{ partial "widget-liturgico.html" . }}
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; max-width: 860px; margin: 0 auto 2rem;">
+  {{ partial "santo-cumpleanos.html" . }}
+  {{ partial "widget-liturgico.html" . }}
+</div>
 
 {{ $featured := first 1 (where .Site.RegularPages "Params.featured" true) }}
 {{ if $featured }}

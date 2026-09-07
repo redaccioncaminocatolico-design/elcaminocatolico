@@ -1,0 +1,401 @@
+<section class="compartir-citas-tool">
+  <div class="citas-header">
+    <h1>Compartir citas</h1>
+    <p>Generá una imagen con una cita bíblica o de un santo para compartir en Instagram, WhatsApp o donde quieras.</p>
+  </div>
+
+  <div class="citas-preview-wrapper">
+    <p class="citas-label-small">VISTA PREVIA</p>
+    <canvas id="citaCanvas" width="1080" height="1080"></canvas>
+  </div>
+
+  <div class="citas-controls">
+    <label class="citas-label-small" for="citaSelect">ELEGÍ LA CITA</label>
+    <select id="citaSelect">
+      <option value="0">"Dios es amor, y quien permanece en el amor permanece en Dios y Dios en él." — 1 Jn 4,16</option>
+      <option value="1">"No temas, porque yo estoy contigo." — Isaías 41,10</option>
+      <option value="2">"Todo lo puedo en aquel que me fortalece." — Filipenses 4,13</option>
+      <option value="3">"El Señor es mi pastor, nada me falta." — Salmo 23,1</option>
+      <option value="4">"Yo soy el camino, la verdad y la vida." — Juan 14,6</option>
+      <option value="5">"Confía en el Señor con todo tu corazón." — Proverbios 3,5</option>
+      <option value="6">"Pidan y se les dará; busquen y encontrarán." — Mateo 7,7</option>
+      <option value="7">"El amor es paciente, es bondadoso." — 1 Corintios 13,4</option>
+      <option value="8">"Bienaventurados los de corazón puro, porque ellos verán a Dios." — Mateo 5,8</option>
+      <option value="9">"Ámense los unos a los otros como yo los he amado." — Juan 15,12</option>
+      <option value="10">"La fe sin obras está muerta." — Santiago 2,26</option>
+      <option value="11">"Nuestro corazón está inquieto hasta que descanse en Ti." — San Agustín</option>
+      <option value="12">"Dad todo el amor que tenéis, sobre todo a los más pobres." — Santa Teresa de Calcuta</option>
+      <option value="13">"La oración es el oxígeno del alma." — San Pío de Pietrelcina</option>
+      <option value="14">"Quien a María imita, a Cristo encuentra." — San Ildefonso de Toledo</option>
+      <option value="15">"No hay amor más grande que dar la vida por los amigos." — Juan 15,13</option>
+      <option value="16">"Vengan a mí todos los que están cansados y agobiados." — Mateo 11,28</option>
+      <option value="17">"Yo soy la resurrección y la vida." — Juan 11,25</option>
+      <option value="18">"La paz sea con vosotros." — Juan 20,19</option>
+      <option value="19">"Sé fiel hasta la muerte y te daré la corona de la vida." — Apocalipsis 2,10</option>
+    </select>
+
+    <div class="citas-format-toggle">
+      <label class="citas-label-small">FORMATO</label>
+      <div class="toggle-buttons">
+        <button class="toggle-btn active" data-format="cuadrado">Cuadrado (Feed)</button>
+        <button class="toggle-btn" data-format="vertical">Vertical (Story)</button>
+      </div>
+    </div>
+
+    <div class="citas-actions">
+      <button id="btnDescargar" class="btn-primary">Descargar imagen</button>
+      <button id="btnCopiar" class="btn-secondary">Copiar texto</button>
+    </div>
+
+    <p id="copyConfirm" class="copy-confirm" aria-live="polite"></p>
+  </div>
+</section>
+
+<style>
+.compartir-citas-tool {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  font-family: inherit;
+}
+
+.citas-header {
+  margin-bottom: 2rem;
+}
+
+.citas-header h1 {
+  font-size: 1.8rem;
+  color: #1a2744;
+  margin-bottom: 0.5rem;
+}
+
+.citas-header p {
+  color: #555;
+  font-size: 0.97rem;
+  line-height: 1.5;
+}
+
+.citas-preview-wrapper {
+  background: #0d1b3e;
+  border-radius: 16px;
+  padding: 1.2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.citas-label-small {
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  color: #b8a55a;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+}
+
+#citaCanvas {
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: 10px;
+  display: block;
+  margin: 0 auto;
+}
+
+.citas-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+#citaSelect {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: #1a1a2e;
+  color: #f0e6c8;
+  border: 1px solid #2e3a5a;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23b8a55a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+
+#citaSelect:focus {
+  outline: 2px solid #b8a55a;
+  outline-offset: 2px;
+}
+
+.citas-format-toggle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.toggle-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.toggle-btn {
+  flex: 1;
+  padding: 0.6rem 1rem;
+  border: 1px solid #2e3a5a;
+  border-radius: 6px;
+  background: transparent;
+  color: #555;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.toggle-btn.active {
+  background: #1a2744;
+  color: #b8a55a;
+  border-color: #1a2744;
+}
+
+.toggle-btn:hover:not(.active) {
+  border-color: #1a2744;
+  color: #1a2744;
+}
+
+.citas-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  flex: 2;
+  min-width: 180px;
+  padding: 0.85rem 1.5rem;
+  background: #1a2744;
+  color: #b8a55a;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-primary:hover {
+  background: #243660;
+}
+
+.btn-secondary {
+  flex: 1;
+  min-width: 120px;
+  padding: 0.85rem 1rem;
+  background: transparent;
+  color: #777;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: #1a2744;
+  color: #1a2744;
+}
+
+.copy-confirm {
+  font-size: 0.85rem;
+  color: #4a7c59;
+  min-height: 1.2em;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .citas-actions {
+    flex-direction: column;
+  }
+  .btn-primary,
+  .btn-secondary {
+    flex: none;
+    width: 100%;
+  }
+}
+</style>
+
+<script>
+(function () {
+  const citas = [
+    { texto: "Dios es amor, y quien permanece en el amor permanece en Dios y Dios en él.", fuente: "1 Jn 4,16" },
+    { texto: "No temas, porque yo estoy contigo.", fuente: "Isaías 41,10" },
+    { texto: "Todo lo puedo en aquel que me fortalece.", fuente: "Filipenses 4,13" },
+    { texto: "El Señor es mi pastor, nada me falta.", fuente: "Salmo 23,1" },
+    { texto: "Yo soy el camino, la verdad y la vida.", fuente: "Juan 14,6" },
+    { texto: "Confía en el Señor con todo tu corazón.", fuente: "Proverbios 3,5" },
+    { texto: "Pidan y se les dará; busquen y encontrarán.", fuente: "Mateo 7,7" },
+    { texto: "El amor es paciente, es bondadoso.", fuente: "1 Corintios 13,4" },
+    { texto: "Bienaventurados los de corazón puro, porque ellos verán a Dios.", fuente: "Mateo 5,8" },
+    { texto: "Ámense los unos a los otros como yo los he amado.", fuente: "Juan 15,12" },
+    { texto: "La fe sin obras está muerta.", fuente: "Santiago 2,26" },
+    { texto: "Nuestro corazón está inquieto hasta que descanse en Ti.", fuente: "San Agustín" },
+    { texto: "Dad todo el amor que tenéis, sobre todo a los más pobres.", fuente: "Santa Teresa de Calcuta" },
+    { texto: "La oración es el oxígeno del alma.", fuente: "San Pío de Pietrelcina" },
+    { texto: "Quien a María imita, a Cristo encuentra.", fuente: "San Ildefonso de Toledo" },
+    { texto: "No hay amor más grande que dar la vida por los amigos.", fuente: "Juan 15,13" },
+    { texto: "Vengan a mí todos los que están cansados y agobiados.", fuente: "Mateo 11,28" },
+    { texto: "Yo soy la resurrección y la vida.", fuente: "Juan 11,25" },
+    { texto: "La paz sea con vosotros.", fuente: "Juan 20,19" },
+    { texto: "Sé fiel hasta la muerte y te daré la corona de la vida.", fuente: "Apocalipsis 2,10" }
+  ];
+
+  const canvas = document.getElementById('citaCanvas');
+  const ctx = canvas.getContext('2d');
+  const select = document.getElementById('citaSelect');
+  const btnDescargar = document.getElementById('btnDescargar');
+  const btnCopiar = document.getElementById('btnCopiar');
+  const copyConfirm = document.getElementById('copyConfirm');
+  const toggleBtns = document.querySelectorAll('.toggle-btn');
+
+  let formato = 'cuadrado'; // 'cuadrado' | 'vertical'
+  let citaActual = 0;
+
+  function setCanvasSize() {
+    if (formato === 'vertical') {
+      canvas.width = 1080;
+      canvas.height = 1920;
+    } else {
+      canvas.width = 1080;
+      canvas.height = 1080;
+    }
+  }
+
+  function dibujarCita(idx) {
+    setCanvasSize();
+    const { texto, fuente } = citas[idx];
+    const W = canvas.width;
+    const H = canvas.height;
+    const cx = W / 2;
+
+    // Fondo degradado azul marino
+    const grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, '#0a1628');
+    grad.addColorStop(0.5, '#1a2744');
+    grad.addColorStop(1, '#0d1b3e');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    // Patrón diagonal sutil
+    ctx.save();
+    ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+    ctx.lineWidth = 1;
+    for (let i = -H; i < W + H; i += 40) {
+      ctx.beginPath();
+      ctx.moveTo(i, 0);
+      ctx.lineTo(i + H, H);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // Cruz decorativa
+    const cruY = formato === 'vertical' ? H * 0.22 : H * 0.2;
+    ctx.fillStyle = '#b8a55a';
+    ctx.font = `bold ${formato === 'vertical' ? 140 : 100}px serif`;
+    ctx.textAlign = 'center';
+    ctx.fillText('†', cx, cruY);
+
+    // Texto de la cita con ajuste de línea
+    const fontSize = formato === 'vertical' ? 72 : 62;
+    ctx.font = `italic ${fontSize}px Georgia, serif`;
+    ctx.fillStyle = '#f0e6c8';
+    ctx.textAlign = 'center';
+
+    const maxW = W * 0.78;
+    const lineH = fontSize * 1.55;
+    const palabras = `"${texto}"`.split(' ');
+    let lineas = [];
+    let lineaActual = '';
+
+    palabras.forEach(p => {
+      const prueba = lineaActual ? lineaActual + ' ' + p : p;
+      if (ctx.measureText(prueba).width > maxW && lineaActual) {
+        lineas.push(lineaActual);
+        lineaActual = p;
+      } else {
+        lineaActual = prueba;
+      }
+    });
+    if (lineaActual) lineas.push(lineaActual);
+
+    const totalH = lineas.length * lineH;
+    const startY = (H - totalH) / 2 - (formato === 'vertical' ? 80 : 40);
+
+    lineas.forEach((l, i) => {
+      ctx.fillText(l, cx, startY + i * lineH);
+    });
+
+    // Fuente / referencia
+    const fuenteY = startY + totalH + (formato === 'vertical' ? 100 : 80);
+    ctx.font = `${formato === 'vertical' ? 56 : 46}px Georgia, serif`;
+    ctx.fillStyle = '#b8a55a';
+    ctx.fillText(`— ${fuente}`, cx, fuenteY);
+
+    // Línea separadora
+    const sepY = H - (formato === 'vertical' ? 200 : 160);
+    ctx.beginPath();
+    ctx.moveTo(cx - 60, sepY);
+    ctx.lineTo(cx + 60, sepY);
+    ctx.strokeStyle = 'rgba(184,165,90,0.4)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Marca del blog
+    const marcaY = H - (formato === 'vertical' ? 120 : 90);
+    ctx.font = `${formato === 'vertical' ? 40 : 34}px Georgia, serif`;
+    ctx.fillStyle = 'rgba(184,165,90,0.7)';
+    ctx.letterSpacing = '0.15em';
+    ctx.fillText('† EL CAMINO CATÓLICO', cx, marcaY);
+  }
+
+  function actualizar() {
+    citaActual = parseInt(select.value);
+    dibujarCita(citaActual);
+  }
+
+  // Formato toggle
+  toggleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      toggleBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      formato = btn.dataset.format;
+      dibujarCita(citaActual);
+    });
+  });
+
+  // Descargar
+  btnDescargar.addEventListener('click', () => {
+    const link = document.createElement('a');
+    const { fuente } = citas[citaActual];
+    const nombre = fuente.replace(/[\s,]/g, '-').toLowerCase();
+    link.download = `cita-${nombre}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  });
+
+  // Copiar texto
+  btnCopiar.addEventListener('click', () => {
+    const { texto, fuente } = citas[citaActual];
+    const textoCopia = `"${texto}"\n— ${fuente}\n\n† El Camino Católico\nelcaminocatolico.com`;
+    navigator.clipboard.writeText(textoCopia).then(() => {
+      copyConfirm.textContent = '✓ Texto copiado al portapapeles';
+      setTimeout(() => { copyConfirm.textContent = ''; }, 3000);
+    }).catch(() => {
+      copyConfirm.textContent = 'No se pudo copiar. Copiá manualmente del selector.';
+    });
+  });
+
+  select.addEventListener('change', actualizar);
+
+  // Render inicial
+  dibujarCita(0);
+})();
+</script>

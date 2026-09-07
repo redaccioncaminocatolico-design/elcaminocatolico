@@ -1,0 +1,404 @@
+{{/* layouts/partials/calendario-liturgico.html */}}
+
+<section class="calendario-liturgico" aria-label="Calendario litúrgico">
+
+  <div class="cal-header">
+    <p class="cal-eyebrow">✝ El Camino Católico</p>
+    <h1 class="cal-title">Calendario Litúrgico</h1>
+    <p class="cal-fecha" id="cal-fecha-display"></p>
+  </div>
+
+  <nav class="cal-nav" aria-label="Navegación por fecha">
+    <button class="cal-btn-nav" onclick="calCambiarDia(-1)" aria-label="Día anterior">← Anterior</button>
+    <span class="cal-nav-label" id="cal-nav-label"></span>
+    <button class="cal-btn-nav" onclick="calCambiarDia(1)" aria-label="Día siguiente">Siguiente →</button>
+  </nav>
+
+  <div class="cal-semana-label" id="cal-semana-label"></div>
+
+  <div class="cal-grid">
+    <div class="cal-card">
+      <p class="cal-card-label">Tiempo litúrgico</p>
+      <div id="cal-tiempo-badge"></div>
+    </div>
+    <div class="cal-card">
+      <p class="cal-card-label">Color litúrgico</p>
+      <div id="cal-color-info"></div>
+    </div>
+  </div>
+
+  <div class="cal-card cal-card-fiestas">
+    <p class="cal-card-label">Fiestas y solemnidades</p>
+    <div id="cal-fiestas-content"></div>
+  </div>
+
+  <div class="cal-volver">
+    <button class="cal-btn-hoy" onclick="calIrHoy()">Volver a hoy</button>
+  </div>
+
+</section>
+
+<style>
+.calendario-liturgico {
+  max-width: 720px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+.cal-header {
+  background: #0d2148;
+  border-radius: 12px;
+  padding: 1.75rem 1.5rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.cal-eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #a89050;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 400;
+}
+.cal-title {
+  margin: 0 0 0.25rem;
+  font-size: 26px;
+  font-weight: 500;
+  color: #f5d77e;
+  line-height: 1.2;
+}
+.cal-fecha {
+  margin: 0;
+  font-size: 13px;
+  color: #a89050;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.cal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.cal-btn-nav {
+  background: transparent;
+  border: 1px solid #c5b97a;
+  border-radius: 6px;
+  padding: 6px 14px;
+  cursor: pointer;
+  color: #0d2148;
+  font-size: 13px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  transition: background 0.15s;
+}
+.cal-btn-nav:hover { background: #f0e9d2; }
+.cal-nav-label {
+  font-size: 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #555;
+  min-width: 160px;
+  text-align: center;
+}
+.cal-semana-label {
+  background: #0d2148;
+  border-radius: 8px;
+  padding: 6px 16px;
+  font-size: 12px;
+  color: #a89050;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  text-align: center;
+  margin-bottom: 1rem;
+  letter-spacing: 0.5px;
+}
+.cal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+@media (max-width: 480px) { .cal-grid { grid-template-columns: 1fr; } }
+.cal-card {
+  background: #fff;
+  border: 1px solid #e2d9c0;
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+}
+.cal-card-fiestas {
+  margin-bottom: 12px;
+}
+.cal-card-label {
+  margin: 0 0 8px;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.cal-tiempo-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.cal-color-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.cal-color-name {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1a1a1a;
+}
+.cal-color-desc {
+  font-size: 12px;
+  color: #777;
+  margin: 2px 0 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.cal-color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid #ddd;
+}
+.cal-fiesta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 7px 0;
+  border-bottom: 1px solid #f0eadc;
+}
+.cal-fiesta-item:last-child { border-bottom: none; }
+.cal-fiesta-rank {
+  font-size: 10px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  white-space: nowrap;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.cal-fiesta-nombre {
+  font-size: 14px;
+  font-weight: 500;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1a1a1a;
+  margin: 0;
+}
+.cal-fiesta-sub {
+  font-size: 12px;
+  color: #777;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  margin: 2px 0 0;
+}
+.cal-fiesta-none {
+  font-size: 13px;
+  color: #888;
+  font-style: italic;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+.cal-volver {
+  text-align: center;
+  padding: 0.5rem 0 1rem;
+}
+.cal-btn-hoy {
+  background: #0d2148;
+  color: #f5d77e;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 22px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: background 0.15s;
+}
+.cal-btn-hoy:hover { background: #163060; }
+</style>
+
+<script>
+(function() {
+  var DIAS  = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  var MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+
+  var fechaActual = new Date();
+
+  function irHoy() { fechaActual = new Date(); renderizar(); }
+  function cambiarDia(d) {
+    var f = new Date(fechaActual);
+    f.setDate(f.getDate() + d);
+    fechaActual = f;
+    renderizar();
+  }
+  window.calIrHoy = irHoy;
+  window.calCambiarDia = cambiarDia;
+
+  function pascua(y) {
+    var a=y%19,b=Math.floor(y/100),c=y%100,d2=Math.floor(b/4),e=b%4,f=Math.floor((b+8)/25);
+    var g=Math.floor((b-f+1)/3),h=(19*a+b-d2-g+15)%30,i=Math.floor(c/4),k=c%4;
+    var l=(32+2*e+2*i-h-k)%7,m=Math.floor((a+11*h+22*l)/451);
+    var mes=Math.floor((h+l-7*m+114)/31),dia=((h+l-7*m+114)%31)+1;
+    return new Date(y,mes-1,dia);
+  }
+
+  function addDays(d,n){var r=new Date(d);r.setDate(r.getDate()+n);return r;}
+  function sameDay(a,b){return a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();}
+  function startOf(d){return new Date(d.getFullYear(),d.getMonth(),d.getDate());}
+
+  function calcAdv(yr) {
+    var nd=new Date(yr,11,25),dow=nd.getDay(),adv=new Date(nd);
+    adv.setDate(adv.getDate()-(dow===0?28:dow+21));
+    while(adv.getDay()!==0)adv.setDate(adv.getDate()-1);
+    return adv;
+  }
+  function calcEpifania(yr) {
+    var ep=new Date(yr,0,6);
+    if(ep.getDay()===0)return ep;
+    while(ep.getDay()!==0)ep.setDate(ep.getDate()+1);
+    return ep;
+  }
+  function bautismo(yr){return addDays(calcEpifania(yr),7);}
+
+  function getTiempo(fecha) {
+    var y=fecha.getFullYear(),p=pascua(y),d0=startOf(fecha);
+    var adv=calcAdv(y),advPrev=calcAdv(y-1);
+    var pPrev=pascua(y-1),baut=bautismo(y),cen=addDays(p,-46);
+    if(d0>=startOf(adv))return'adviento';
+    if(d0>=startOf(new Date(y-1,11,25))&&d0<startOf(bautismo(y-1===y?y:y-1)))return'navidad';
+    if(d0>=startOf(new Date(y-1,11,25))&&d0<startOf(baut))return'navidad';
+    if(d0>=startOf(baut)&&d0<startOf(cen))return'ordinario';
+    if(d0>=startOf(cen)&&d0<startOf(p))return'cuaresma';
+    if(d0>=startOf(p)&&d0<=startOf(addDays(p,49)))return'pascua';
+    return'ordinario';
+  }
+
+  function getSemanaLabel(fecha,tiempo) {
+    var y=fecha.getFullYear(),p=pascua(y);
+    var N=['Primera','Segunda','Tercera','Cuarta','Quinta','Sexta','Séptima'];
+    if(tiempo==='adviento'){
+      var adv=calcAdv(y),s=Math.floor((startOf(fecha)-startOf(adv))/(7*86400000))+1;
+      return N[Math.min(s,4)-1]+' Semana de Adviento';
+    }
+    if(tiempo==='cuaresma'){
+      var cen=addDays(p,-46),diff=Math.floor((startOf(fecha)-startOf(cen))/86400000);
+      var s2=Math.floor(diff/7)+1;
+      return s2<=6?N[s2-1]+' Semana de Cuaresma':'Semana Santa';
+    }
+    if(tiempo==='pascua'){
+      var diff2=Math.round((startOf(fecha)-startOf(p))/86400000);
+      var s3=Math.floor(diff2/7)+1;
+      return s3<=7?N[s3-1]+' Semana de Pascua':'Tiempo Pascual';
+    }
+    if(tiempo==='navidad')return'Tiempo de Navidad';
+    return'Tiempo Ordinario';
+  }
+
+  var COLORES={
+    verde: {hex:'#2d6a2d',nombre:'Verde',desc:'Esperanza y vida'},
+    morado:{hex:'#5b2d8a',nombre:'Morado',desc:'Penitencia y espera'},
+    blanco:{hex:'#e8dfc0',nombre:'Blanco',desc:'Pureza y alegría'},
+    rojo:  {hex:'#c0392b',nombre:'Rojo',desc:'Espíritu y martirio'},
+    rosa:  {hex:'#c17b9e',nombre:'Rosa',desc:'Alegría anticipada'},
+    negro: {hex:'#222',nombre:'Negro',desc:'Luto'}
+  };
+  var TIEMPOS={
+    adviento: {nombre:'Adviento',emoji:'🕯️',bg:'#3d1a6e',color:'#d4a8ff'},
+    navidad:  {nombre:'Navidad',emoji:'⭐',bg:'#7a5c00',color:'#fffbe6'},
+    cuaresma: {nombre:'Cuaresma',emoji:'✝️',bg:'#3d1a6e',color:'#d4a8ff'},
+    pascua:   {nombre:'Tiempo Pascual',emoji:'✝️',bg:'#7a5c00',color:'#fffbe6'},
+    ordinario:{nombre:'Tiempo Ordinario',emoji:'🌿',bg:'#1a4a1a',color:'#c8f0c8'}
+  };
+
+  function getColor(fecha,tiempo,fiestas) {
+    var top=fiestas.find(function(f){return f.color;});
+    if(top)return top.color;
+    if(tiempo==='adviento'){
+      var y=fecha.getFullYear(),p=pascua(y),adv=calcAdv(y);
+      var sem=Math.floor((startOf(fecha)-startOf(adv))/(7*86400000))+1;
+      return(sem===3&&fecha.getDay()===0)?'rosa':'morado';
+    }
+    if(tiempo==='cuaresma'){
+      var y2=fecha.getFullYear(),p2=pascua(y2),cen=addDays(p2,-46);
+      var dom4=addDays(cen,21);
+      return sameDay(fecha,dom4)?'rosa':'morado';
+    }
+    if(tiempo==='navidad'||tiempo==='pascua')return'blanco';
+    return'verde';
+  }
+
+  function getFiestas(fecha) {
+    var m=fecha.getMonth()+1,d=fecha.getDate(),y=fecha.getFullYear();
+    var p=pascua(y),diff=Math.round((startOf(fecha)-startOf(p))/86400000);
+    var f=[];
+    function sol(n,s,c){f.push({nombre:n,rango:'Solemnidad',bg:'#0d2148',txt:'#f5d77e',sub:s||'',color:c});}
+    function fst(n,s,c){f.push({nombre:n,rango:'Fiesta',bg:'#1a4a1a',txt:'#c8f0c8',sub:s||'',color:c});}
+    function mem(n,s){f.push({nombre:n,rango:'Memoria',bg:'#444',txt:'#eee',sub:s||''});}
+
+    if(diff===0)sol('Resurrección del Señor','Solemnidad de solemnidades','blanco');
+    if(diff===1)fst('Lunes de Pascua','','blanco');
+    if(diff===39)sol('Ascensión del Señor','Cuarenta días después de Pascua','blanco');
+    if(diff===49)sol('Pentecostés','Venida del Espíritu Santo','rojo');
+    if(diff===56)sol('Santísima Trinidad','Domingo después de Pentecostés');
+    if(diff===60)sol('Corpus Christi','Solemnidad del Cuerpo y Sangre de Cristo');
+    if(diff===68)fst('Sagrado Corazón de Jesús','Viernes después del Corpus');
+
+    var cen=addDays(p,-46);
+    if(sameDay(fecha,cen))fst('Miércoles de Ceniza','Inicio de la Cuaresma','morado');
+    if(sameDay(fecha,addDays(p,-7)))fst('Domingo de Ramos','Entrada de Jesús en Jerusalén','rojo');
+    if(diff===-3)fst('Jueves Santo','Última Cena del Señor','blanco');
+    if(diff===-2)fst('Viernes Santo','Pasión y Muerte del Señor','rojo');
+    if(diff===-1)mem('Sábado Santo','Vigilia Pascual');
+
+    var fijas={'1-1':function(){sol('Santísima María, Madre de Dios','1 de enero','blanco');},'1-6':function(){sol('Epifanía del Señor','Adoración de los Reyes Magos','blanco');},'2-2':function(){fst('Presentación del Señor','La Candelaria','blanco');},'2-11':function(){mem('Nuestra Señora de Lourdes','Jornada del Enfermo');},'3-19':function(){sol('San José, Esposo de la Virgen María','Solemnidad','blanco');},'3-25':function(){sol('Anunciación del Señor','9 meses antes de Navidad','blanco');},'5-1':function(){mem('San José Obrero','Día del Trabajo');},'5-13':function(){mem('Nuestra Señora de Fátima','Aparición de 1917');},'6-13':function(){mem('San Antonio de Padua','Doctor de la Iglesia');},'6-24':function(){sol('Natividad de San Juan Bautista','Solemnidad','blanco');},'6-29':function(){sol('Santos Pedro y Pablo, Apóstoles','Solemnidad','rojo');},'7-16':function(){mem('Nuestra Señora del Carmen','');},'7-22':function(){fst('Santa María Magdalena','Apóstol de los Apóstoles','blanco');},'7-25':function(){fst('Santiago Apóstol','Patrón de España','rojo');},'8-6':function(){fst('Transfiguración del Señor','','blanco');},'8-10':function(){fst('San Lorenzo, Diácono y Mártir','','rojo');},'8-15':function(){sol('Asunción de la Santísima Virgen María','Solemnidad','blanco');},'8-22':function(){mem('María Reina','');},'9-8':function(){fst('Natividad de la Santísima Virgen María','','blanco');},'9-14':function(){fst('Exaltación de la Santa Cruz','','rojo');},'9-15':function(){mem('Nuestra Señora de los Dolores','');},'10-2':function(){mem('Santos Ángeles Custodios','');},'10-4':function(){mem('San Francisco de Asís','Patrono de la ecología');},'10-7':function(){mem('Nuestra Señora del Rosario','');},'11-1':function(){sol('Todos los Santos','Solemnidad','blanco');},'11-2':function(){mem('Conmemoración de los Fieles Difuntos','Día de los muertos');},'12-8':function(){sol('Inmaculada Concepción de la Virgen María','Solemnidad','blanco');},'12-12':function(){fst('Nuestra Señora de Guadalupe','Patrona de América','blanco');},'12-25':function(){sol('Natividad del Señor','¡Feliz Navidad!','blanco');},'12-26':function(){fst('San Esteban, Primer Mártir','','rojo');},'12-27':function(){fst('San Juan Apóstol y Evangelista','','blanco');},'12-28':function(){fst('Santos Inocentes, Mártires','','rojo');}};
+    var k=m+'-'+d;
+    if(fijas[k])fijas[k]();
+
+    var adv=calcAdv(y),crRey=addDays(adv,-7);
+    if(sameDay(fecha,crRey))sol('Cristo Rey del Universo','Último domingo del año litúrgico','blanco');
+    var baut=bautismo(y);
+    if(sameDay(fecha,baut))fst('Bautismo del Señor','Fin del Tiempo de Navidad','blanco');
+    var nd=new Date(y,11,25),sf=new Date(nd);
+    if(nd.getDay()===0){sf=addDays(nd,7);}else{while(sf.getDay()!==0)sf.setDate(sf.getDate()+1);}
+    if(sameDay(fecha,sf))fst('Sagrada Familia','Jesús, María y José','blanco');
+
+    return f;
+  }
+
+  function renderizar() {
+    var f=fechaActual,dow=f.getDay();
+    var tiempo=getTiempo(f),fiestas=getFiestas(f);
+    var colorKey=getColor(f,tiempo,fiestas),color=COLORES[colorKey],t=TIEMPOS[tiempo];
+    var semLabel=getSemanaLabel(f,tiempo);
+    var hoy=new Date(),esHoy=sameDay(f,hoy);
+
+    document.getElementById('cal-fecha-display').textContent=DIAS[dow]+', '+f.getDate()+' de '+MESES[f.getMonth()]+' de '+f.getFullYear();
+    document.getElementById('cal-nav-label').textContent=esHoy?'📅 Hoy':f.getDate()+' '+MESES[f.getMonth()]+' '+f.getFullYear();
+    document.getElementById('cal-semana-label').textContent=semLabel;
+
+    document.getElementById('cal-tiempo-badge').innerHTML='<span class="cal-tiempo-badge" style="background:'+t.bg+';color:'+t.color+'">'+t.emoji+' '+t.nombre+'</span>';
+
+    var swatchBorder=colorKey==='blanco'?'border:1.5px solid #bbb;':'';
+    document.getElementById('cal-color-info').innerHTML='<div class="cal-color-row"><div><p class="cal-color-name">'+color.nombre+'</p><p class="cal-color-desc">'+color.desc+'</p></div><div class="cal-color-swatch" style="background:'+color.hex+';'+swatchBorder+'"></div></div>';
+
+    var cont=document.getElementById('cal-fiestas-content');
+    if(fiestas.length===0){
+      cont.innerHTML='<p class="cal-fiesta-none">Sin fiestas especiales — '+(dow===5?'Viernes de Tiempo Ordinario':dow===0?'Domingo de Tiempo Ordinario':'Día de feria')+'</p>';
+    }else{
+      cont.innerHTML=fiestas.map(function(fi){return'<div class="cal-fiesta-item"><span class="cal-fiesta-rank" style="background:'+fi.bg+';color:'+fi.txt+'">'+fi.rango+'</span><div><p class="cal-fiesta-nombre">'+fi.nombre+'</p>'+(fi.sub?'<p class="cal-fiesta-sub">'+fi.sub+'</p>':'')+'</div></div>';}).join('');
+    }
+  }
+
+  renderizar();
+})();
+</script>
